@@ -15,15 +15,15 @@
 ## 中心以外を切り取りスキャンする実装方法
 `CropViewController` において，切り取り範囲を指定したスキャンを実行しています．
 
-切り取り範囲を指定した `scanOption` を `scanTexts` メソッドに渡すことで，指定した範囲の画像をスキャンすることができます．
+切り取り範囲を指定した `scanOption` を `scan` メソッドに渡すことで，指定した範囲の画像をスキャンすることができます．
 
 ```swift
 // MARK: - scanOptionを指定して，OCRを実行
 
-scanResult = try edgeOCR.scanTexts(
+scanResult = try edgeOCR.scan(
     sampleBuffer,
     scanOption: scanOption,
-    previewViewBounds: previewBounds)
+    viewBounds: viewBounds)
 ```
 
 `scanOption` の `horizontalBias`, `verticalBias`, `width`, `height` プロパティを設定することで，画像の中心部以外を切り取りスキャンすることができます．
@@ -44,10 +44,8 @@ scanResult = try edgeOCR.scanTexts(
 
 例えば，図のように画面を9等分して，最下段の真ん中のみを切り取りたい場合は以下のように，`horizontalBias`, `verticalBias`, `cropWidth`, `height` を設定します．
 ```swift
-
-```swift
-scanOption = ScanOption(
-    scanMode: ScanOption.ScanMode.ScanModeTexts,
+scanOptions = ScanOptions(
+    scanMode: ScanOptions.ScanMode.Default,
     cropRect: CropRect(
         horizontalBias: 0.5,
         verticalBias: 1.0,

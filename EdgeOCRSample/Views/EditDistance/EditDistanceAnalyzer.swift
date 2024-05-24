@@ -38,22 +38,20 @@ class EditDistanceAnalyzer {
         return matrix[s0.count][s1.count]
     }
 
-    func analyze(_ detections: [Detection<Text>], minDist: Int) -> AnalyzerResult {
-        var targetDetections = [Detection<Text>]()
-        var notTargetDetections = [Detection<Text>]()
+    func analyze(_ detections: [Text], minDist: Int) -> AnalyzerResult {
+        var targetDetections = [Text]()
+        var notTargetDetections = [Text]()
 
         for detection in detections {
-            var targetDetection: Detection<Text>? = nil
+            var targetDetection: Text? = nil
             for candidate in candidates {
-                var obj = detection.getScanObject()
-                let text = obj.getText()
+                let text = detection.getText()
                 var dist = minDist + 1
                 if !text.isEmpty {
                     dist = EditDistanceAnalyzer.editDistance(text, s1: candidate)
                 }
                 if dist <= minDist {
-                    obj.setText(candidate)
-                    detection.setScanObject(obj)
+                    detection.setText(candidate)
                     targetDetection = detection
                 }
             }

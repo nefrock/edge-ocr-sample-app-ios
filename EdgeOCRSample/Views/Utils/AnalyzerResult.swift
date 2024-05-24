@@ -9,19 +9,19 @@ import EdgeOCRSwift
 import Foundation
 
 class AnalyzerResult {
-    let targetDetections: [Detection<Text>]
-    let notTargetDetections: [Detection<Text>]
+    let targetDetections: [Detection]
+    let notTargetDetections: [Detection]
 
-    init(targetDetections: [Detection<Text>], notTargetDetections: [Detection<Text>]) {
+    init(targetDetections: [Detection], notTargetDetections: [Detection]) {
         self.targetDetections = targetDetections
         self.notTargetDetections = notTargetDetections
     }
 
-    func getTargetDetections() -> [Detection<Text>] {
+    func getTargetDetections() -> [Detection] {
         return targetDetections
     }
 
-    func getNotTargetDetections() -> [Detection<Text>] {
+    func getNotTargetDetections() -> [Detection] {
         return notTargetDetections
     }
 }

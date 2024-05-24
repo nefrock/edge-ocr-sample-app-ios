@@ -31,29 +31,29 @@ class DetectionFilterViewController: ViewController {
 
     override func setupLayers() {
         // 検出範囲を示すガイドを設定
-        let width = previewBounds.width
-        let height = previewBounds.width * CGFloat(aspectRatio)
-        let defaultCropRect = CropRect()
-        let coropHorizontalBias = defaultCropRect.horizontalBias
-        let cropVerticalBias = defaultCropRect.verticalBias
-        let cropWidth = defaultCropRect.width
-        let cropHeight = defaultCropRect.height
+        let width = viewBounds.width
+        let height = viewBounds.width * CGFloat(aspectRatio)
+        // デフォルトの検出領域である画面中央にガイドを表示
+        let coropHorizontalBias = 0.5
+        let cropVerticalBias = 0.5
         guideLayer = CALayer()
         guideLayer.frame = CGRect(
-            x: coropHorizontalBias * (previewBounds.width - width),
-            y: cropVerticalBias * (previewBounds.height - height),
-            width: cropWidth * width,
-            height: cropHeight * height)
+            x: coropHorizontalBias * (viewBounds.width - width),
+            y: cropVerticalBias * (viewBounds.height - height),
+            width: width,
+            height: height)
 
         let borderWidth = 3.0
         let boxColor = UIColor.green
         guideLayer.borderWidth = borderWidth
         guideLayer.borderColor = boxColor.cgColor
-        guideLayer.addCenterPoint(color: boxColor.withAlphaComponent(0.7).cgColor, radius: 10.0)
+        guideLayer.addCenterPoint(
+            color: boxColor.withAlphaComponent(0.7).cgColor,
+            radius: 10.0)
 
         // 検出結果を表示させるレイヤーを作成
         detectionLayer = CALayer()
-        detectionLayer.frame = previewBounds
+        detectionLayer.frame = viewBounds
 
         DispatchQueue.main.async { [weak self] in
             if let layer = self?.previewLayer {
@@ -105,7 +105,7 @@ class DetectionFilterViewController: ViewController {
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         detectionLayer.sublayers = nil
         for detection in result.getTextDetections() {
-            let text = detection.getScanObject().getText()
+            let text = detection.getText()
             if !text.isEmpty {
                 let bbox = detection.getBoundingBox()
                 drawDetection(bbox: bbox, text: text)
@@ -117,7 +117,7 @@ class DetectionFilterViewController: ViewController {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let scanResult: ScanResult
         do {
-            scanResult = try edgeOCR.scanTexts(sampleBuffer, previewViewBounds: previewBounds)
+            scanResult = try edgeOCR.scan(sampleBuffer, viewBounds: viewBounds)
         } catch {
             os_log("Failed to scan texts: %@", type: .debug, error.localizedDescription)
             return

@@ -11,11 +11,12 @@ import SwiftUI
 struct FeedbackView: View {
     @State var sendFlag: Bool = false
     var body: some View {
-        VStack(spacing: 30) {
+        VStack {
             HostedFeedbackViewController(sendFlag: $sendFlag)
                 .ignoresSafeArea()
-            FeedbackFotter(sendFlag: $sendFlag)
-            Spacer().frame(height: 50)
+            Spacer().frame(height: 20)
+            FeedbackFooter(sendFlag: $sendFlag)
+            Spacer().frame(height: 20)
         }
     }
 }

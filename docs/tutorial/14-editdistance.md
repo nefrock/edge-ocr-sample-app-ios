@@ -22,9 +22,9 @@
 例えば，`kitten` と `sitting` の編集距離は3です．
 以下のように変換することで，`kitten` を `sitting` に変換することができます．
 ```
-                  kitten 
--(k を s に置換)-> sitten 
--(e を i に置換)-> sittin 
+                  kitten
+-(k を s に置換)-> sitten
+-(e を i に置換)-> sittin
 -(g を末尾に挿入)-> sitting
 ```
 
@@ -66,21 +66,19 @@ class EditDistanceAnalyzer {
         return matrix[s0.count][s1.count]
     }
 
-    func analyze(_ detections: [Detection<Text>], minDist: Int) -> AnalyzerResult {
-        var targetDetections = [Detection<Text>]()
-        var notTargetDetections = [Detection<Text>]()
+    func analyze(_ detections: [Text], minDist: Int) -> AnalyzerResult {
+        var targetDetections = [Text]()
+        var notTargetDetections = [Text]()
 
         for detection in detections {
             for candidate in candidates {
-                var obj = detection.getScanObject()
-                let text = obj.getText()
+                let text = detection.getText()
                 var dist = minDist + 1
                 if !text.isEmpty {
                     dist = EditDistanceAnalyzer.editDistance(text, s1: candidate)
                 }
                 if dist <= minDist {
-                    obj.setText(candidate)
-                    detection.setScanObject(obj)
+                    detection.setText(candidate)
                     targetDetections.append(detection)
                 } else {
                     notTargetDetections.append(detection)
@@ -97,7 +95,7 @@ class EditDistanceAnalyzer {
 
 次に，`EdgeOCRSample/Views/EditDistance/EditDistanceViewController.swift` では，`EditDistanceAnalyzer` クラスを使用して，検出結果とマスターデータの比較を行います．
 
-`targetDetections` にはマスターデータに含まれている `Detection<Text>` が，`notTargetDetections` には含まれていない `Detection<Text>` が格納されます．
+`targetDetections` にはマスターデータに含まれている `Text` が，`notTargetDetections` には含まれていない `Text` が格納されます．
 
 `targetDetections` は緑色の枠で囲まれたテキストを，`notTargetDetections` は赤色の枠で囲まれたテキストを表示します．
 
@@ -114,14 +112,14 @@ func drawDetections(result: ScanResult) {
     let analyzerResult = analyzer.analyze(detections, minDist: minDist)
     var messages: [String] = []
     for targetDetection in analyzerResult.getTargetDetections() {
-        let text = targetDetection.getScanObject().getText()
+        let text = targetDetection.getText()
         let bbox = targetDetection.getBoundingBox()
         drawDetection(bbox: bbox, text: text)
         messages.append(text)
     }
 
     for notTargetDetection in analyzerResult.getNotTargetDetections() {
-        let text = notTargetDetection.getScanObject().getText()
+        let text = notTargetDetection.getText()
         let bbox = notTargetDetection.getBoundingBox()
         drawDetection(bbox: bbox, text: text, boxColor: UIColor.red.withAlphaComponent(0.5).cgColor)
     }

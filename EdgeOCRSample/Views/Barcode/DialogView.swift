@@ -29,8 +29,8 @@ struct DialogView: View {
                 .cornerRadius(15)
             Spacer().frame(height: 20)
             VStack(spacing: 10) {
-                ForEach(messages, id: \.self) { message in
-                    Text(message)
+                ForEach(0 ..< messages.count, id: \.self) { idx in
+                    Text(messages[idx])
                 }
             }
             Spacer().frame(height: 25)

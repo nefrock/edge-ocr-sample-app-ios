@@ -18,7 +18,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     private let sessionQueue = DispatchQueue(label: "sessionQueue")
     private lazy var videoOutput = AVCaptureVideoDataOutput()
     var previewLayer = AVCaptureVideoPreviewLayer()
-    var previewBounds: CGRect! = nil // for view dimensions
+    var viewBounds: CGRect! = nil // for view dimensions
 
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -146,7 +146,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             y: UIScreen.main.bounds.height * 0.1,
             width: UIScreen.main.bounds.width,
             height: UIScreen.main.bounds.height * 0.75)
-        previewBounds = CGRect(
+        viewBounds = CGRect(
             x: 0,
             y: 0,
             width: previewFrame.width,
@@ -163,7 +163,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         DispatchQueue.main.async { [weak self] in
             self!.previewLayer = AVCaptureVideoPreviewLayer(session: self!.captureSession)
             self!.previewLayer.frame = previewFrame
-            self!.previewLayer.bounds = self!.previewBounds
+            self!.previewLayer.bounds = self!.viewBounds
             self!.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
             self!.view.layer.addSublayer(self!.previewLayer)
         }

@@ -17,12 +17,12 @@ class CropViewController: ViewController {
     var guideLayer: CALayer!
 
     // 切り取る領域の設定
-    var scanOption: ScanOption
+    var scanOptions: ScanOptions
 
     init(
-        scanOption: ScanOption)
+        scanOptions: ScanOptions)
     {
-        self.scanOption = scanOption
+        self.scanOptions = scanOptions
         super.init()
     }
 
@@ -34,18 +34,18 @@ class CropViewController: ViewController {
 
     override func setupLayers() {
         // 検出範囲を示すガイドを設定
-        let cropWidth = scanOption.getCropRect().width
-        let cropHeight = scanOption.getCropRect().height
-        let cropHorizontalBias = scanOption.getCropRect().horizontalBias
-        let cropVerticalBias = scanOption.getCropRect().verticalBias
+        let cropWidth = scanOptions.getCropRect().width
+        let cropHeight = scanOptions.getCropRect().height
+        let cropHorizontalBias = scanOptions.getCropRect().horizontalBias
+        let cropVerticalBias = scanOptions.getCropRect().verticalBias
 
-        let width = previewBounds.width * cropWidth
-        let height = previewBounds.height * cropHeight
+        let width = viewBounds.width * cropWidth
+        let height = viewBounds.height * cropHeight
 
         guideLayer = CALayer()
         guideLayer.frame = CGRect(
-            x: cropHorizontalBias * (previewBounds.width - width),
-            y: cropVerticalBias * (previewBounds.height - height),
+            x: cropHorizontalBias * (viewBounds.width - width),
+            y: cropVerticalBias * (viewBounds.height - height),
             width: width,
             height: height)
         let borderWidth = 3.0
@@ -55,7 +55,7 @@ class CropViewController: ViewController {
 
         // 検出結果を表示させるレイヤーを作成
         detectionLayer = CALayer()
-        detectionLayer.frame = previewBounds
+        detectionLayer.frame = viewBounds
 
         DispatchQueue.main.async { [weak self] in
             if let layer = self?.previewLayer {
@@ -68,23 +68,23 @@ class CropViewController: ViewController {
     // MARK: - 検出範囲を更新
 
     func updateDetectinLayer(
-        scanOption: ScanOption)
+        scanOptions: ScanOptions)
     {
         // scanOptionを更新
-        self.scanOption = scanOption
+        self.scanOptions = scanOptions
 
         // detectionLayerを更新
-        let cropWidth = scanOption.getCropRect().width
-        let cropHeight = scanOption.getCropRect().height
-        let cropHorizontalBias = scanOption.getCropRect().horizontalBias
-        let cropVerticalBias = scanOption.getCropRect().verticalBias
+        let cropWidth = scanOptions.getCropRect().width
+        let cropHeight = scanOptions.getCropRect().height
+        let cropHorizontalBias = scanOptions.getCropRect().horizontalBias
+        let cropVerticalBias = scanOptions.getCropRect().verticalBias
 
         guideLayer.frame =
             CGRect(
-                x: cropHorizontalBias * (previewBounds.width - previewBounds.width * cropWidth),
-                y: cropVerticalBias * (previewBounds.height - previewBounds.height * cropHeight),
-                width: previewBounds.width * cropWidth,
-                height: previewBounds.height * cropHeight)
+                x: cropHorizontalBias * (viewBounds.width - viewBounds.width * cropWidth),
+                y: cropVerticalBias * (viewBounds.height - viewBounds.height * cropHeight),
+                width: viewBounds.width * cropWidth,
+                height: viewBounds.height * cropHeight)
     }
 
     func drawDetection(
@@ -129,7 +129,7 @@ class CropViewController: ViewController {
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         detectionLayer.sublayers = nil
         for detection in result.getTextDetections() {
-            let text = detection.getScanObject().getText()
+            let text = detection.getText()
             if true {
                 let bbox = detection.getBoundingBox()
                 drawDetection(bbox: bbox, text: text)
@@ -143,10 +143,10 @@ class CropViewController: ViewController {
         do {
             // MARK: - scanOptionを指定して，OCRを実行
 
-            scanResult = try edgeOCR.scanTexts(
+            scanResult = try edgeOCR.scan(
                 sampleBuffer,
-                scanOption: scanOption,
-                previewViewBounds: previewBounds)
+                scanOptions: scanOptions,
+                viewBounds: viewBounds)
 
         } catch {
             os_log("Failed to scan texts: %@", type: .debug, error.localizedDescription)
@@ -167,29 +167,29 @@ struct HostedCropViewController: UIViewControllerRepresentable {
     @Binding var cropHeight: CGFloat
 
     func makeUIViewController(context: Context) -> CropViewController {
-        let scanOption = ScanOption(
-            scanMode: ScanOption.ScanMode.ScanModeTexts,
+        let scanOptions = ScanOptions(
+            scanMode: ScanOptions.ScanMode.Default,
             cropRect: CropRect(
                 horizontalBias: $cropHorizontalBias.wrappedValue,
                 verticalBias: $cropVerticalBias.wrappedValue,
                 width: $cropWidth.wrappedValue,
                 height: $cropHeight.wrappedValue))
         return CropViewController(
-            scanOption: scanOption)
+            scanOptions: scanOptions)
     }
 
     func updateUIViewController(_ uiViewController: CropViewController, context: Context) {
         guard uiViewController.detectionLayer != nil else {
             return
         }
-        let scanOption = ScanOption(
-            scanMode: ScanOption.ScanMode.ScanModeTexts,
+        let scanOptions = ScanOptions(
+            scanMode: ScanOptions.ScanMode.Default,
             cropRect: CropRect(
                 horizontalBias: $cropHorizontalBias.wrappedValue,
                 verticalBias: $cropVerticalBias.wrappedValue,
                 width: $cropWidth.wrappedValue,
                 height: $cropHeight.wrappedValue))
-        uiViewController.updateDetectinLayer(scanOption: scanOption)
+        uiViewController.updateDetectinLayer(scanOptions: scanOptions)
     }
 }
 

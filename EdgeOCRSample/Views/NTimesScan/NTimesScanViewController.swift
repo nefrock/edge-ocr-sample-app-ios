@@ -35,19 +35,17 @@ class NTimesScanViewController: ViewController {
 
     override func setupLayers() {
         // 検出範囲を示すガイドを設定
-        let width = previewBounds.width
-        let height = previewBounds.width * CGFloat(aspectRatio)
-        let defaultCropRect = CropRect()
-        let coropHorizontalBias = defaultCropRect.horizontalBias
-        let cropVerticalBias = defaultCropRect.verticalBias
-        let cropWidth = defaultCropRect.width
-        let cropHeight = defaultCropRect.height
+        let width = viewBounds.width
+        let height = viewBounds.width * CGFloat(aspectRatio)
+        // デフォルトの検出領域である画面中央にガイドを表示
+        let coropHorizontalBias = 0.5
+        let cropVerticalBias = 0.5
         guideLayer = CALayer()
         guideLayer.frame = CGRect(
-            x: coropHorizontalBias * (previewBounds.width - width),
-            y: cropVerticalBias * (previewBounds.height - height),
-            width: cropWidth * width,
-            height: cropHeight * height)
+            x: coropHorizontalBias * (viewBounds.width - width),
+            y: cropVerticalBias * (viewBounds.height - height),
+            width: width,
+            height: height)
 
         let borderWidth = 3.0
         let boxColor = UIColor.green.cgColor
@@ -56,7 +54,7 @@ class NTimesScanViewController: ViewController {
 
         // 検出結果を表示させるレイヤーを作成
         detectionLayer = CALayer()
-        detectionLayer.frame = previewBounds
+        detectionLayer.frame = viewBounds
 
         DispatchQueue.main.async { [weak self] in
             if let layer = self?.previewLayer {
@@ -106,12 +104,11 @@ class NTimesScanViewController: ViewController {
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         detectionLayer.sublayers = nil
         for detection in result.getTextDetections() {
-            let text = detection.getScanObject().getText()
-            let status = detection.getStatus()
+            let text = detection.getText()
 
             // MARK: - テキストが連続して読み取られたか確認
 
-            if status == ScanConfirmationStatus.Confirmed {
+            if detection.getStatus() == ScanConfirmationStatus.Confirmed {
                 if text.wholeMatch(of: regex) != nil {
                     let bbox = detection.getBoundingBox()
                     drawDetection(bbox: bbox, text: text)
@@ -130,7 +127,7 @@ class NTimesScanViewController: ViewController {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let scanResult: ScanResult
         do {
-            scanResult = try edgeOCR.scanTexts(sampleBuffer, previewViewBounds: previewBounds)
+            scanResult = try edgeOCR.scan(sampleBuffer, viewBounds: viewBounds)
 
         } catch {
             os_log("Failed to scan texts: %@", type: .debug, error.localizedDescription)

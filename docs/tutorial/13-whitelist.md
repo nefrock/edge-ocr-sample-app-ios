@@ -21,23 +21,23 @@
 ## マスターデータを用いたOCR（完全一致）の実装方法
 `EdgeOCRSample/Views/WhiteList/WhiteListAnalyzer.swift` に実装されている `WhiteListAnalyzer` クラスを使用して，検出結果とマスターデータの比較を行います．
 
-マスターデータに含まれている `Detection<Text>` は `targetDetections` に，含まれていない `Detection<Text>` は `notTargetDetections` に格納します．
+マスターデータに含まれている `Text` は `targetDetections` に，含まれていない `Text` は `notTargetDetections` に格納します．
 
 ```swift
 class AnalyzerResult {
-    let targetDetections: [Detection<Text>]
-    let notTargetDetections: [Detection<Text>]
+    let targetDetections: [Text]
+    let notTargetDetections: [Text]
 
-    init(targetDetections: [Detection<Text>], notTargetDetections: [Detection<Text>]) {
+    init(targetDetections: [Text], notTargetDetections: [Text]) {
         self.targetDetections = targetDetections
         self.notTargetDetections = notTargetDetections
     }
 
-    func getTargetDetections() -> [Detection<Text>] {
+    func getTargetDetections() -> [Text] {
         return targetDetections
     }
 
-    func getNotTargetDetections() -> [Detection<Text>] {
+    func getNotTargetDetections() -> [Text] {
         return notTargetDetections
     }
 }
@@ -54,12 +54,12 @@ class WhiteListAnalyzer {
 
     init() {}
 
-    func analyze(_ detections: [Detection<Text>]) -> AnalyzerResult {
-        var targetDetections: [Detection<Text>] = []
-        var notTargetDetections: [Detection<Text>] = []
+    func analyze(_ detections: [Text]) -> AnalyzerResult {
+        var targetDetections: [Text] = []
+        var notTargetDetections: [Text] = []
 
         for detection in detections {
-            let text = detection.getScanObject().getText()
+            let text = detection.getText()
             // マスターデータ（ホワイトリスト）に含まれているかどうかを判定
             if whiteList.contains(text) {
                 targetDetections.append(detection)
@@ -94,14 +94,14 @@ func drawDetections(result: ScanResult) {
     let analyzerResult = analyzer.analyze(detections)
     var messages: [String] = []
     for targetDetection in analyzerResult.getTargetDetections() {
-        let text = targetDetection.getScanObject().getText()
+        let text = targetDetection.getText()
         let bbox = targetDetection.getBoundingBox()
         drawDetection(bbox: bbox, text: text)
         messages.append(text)
     }
 
     for notTargetDetection in analyzerResult.getNotTargetDetections() {
-        let text = notTargetDetection.getScanObject().getText()
+        let text = notTargetDetection.getText()
         let bbox = notTargetDetection.getBoundingBox()
         drawDetection(bbox: bbox, text: text, boxColor: UIColor.red.withAlphaComponent(0.5).cgColor)
     }

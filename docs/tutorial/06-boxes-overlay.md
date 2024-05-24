@@ -23,7 +23,7 @@
 ## SDK が解析する画像の範囲について
 実装方法について説明を行う前に，SDK が解析する画像の範囲と検出結果の相対座標について説明を行います．
 
-まず，`edgeOCR.scanTexts` が解析する範囲は，指定したモデルに依存します．
+まず，`edgeOCR.scan` が解析する範囲は，指定したモデルに依存します．
 ここではデフォルトで提供されている `model-large` を例に説明を行っていきます．
 
 モデルはインプットとして取れる画像のアスペクト比を持っており，
@@ -36,15 +36,15 @@
 <img src="./imgs/06-boxes-overlay/scan-area.jpeg" width="300">
 
 
-たとえば SDK に入力する画像のサイズを 360x720 とすると，モデルに渡される画像の大きさは，横幅はそのままの 360 で，縦幅が 360x320/320=90 となります．
+たとえば SDK に入力する画像のサイズを `360x720` とすると，モデルに渡される画像の大きさは，横幅はそのままの `360` で，縦幅が `360x320/320 = 360` となります．
 
-次に，`edgeOCR.scanTexts` の検出結果を表す `Detection<Text>` の `getBoundingBox`メソッドで得られる座標は `scanTexts` に入力した `previewLayer` (赤色の領域）の横・縦を1に正規化した相対座標で表されます．
+次に，`edgeOCR.scan` の検出結果を表す `Detection` の `getBoundingBox`メソッドで得られる座標は `scan` に入力した `previewLayer` (赤色の領域）の横・縦を1に正規化した相対座標で表されます．
 先ほどの，`model-d320x320` を使用した際の，検出結果の `detectionLayer` における絶対座標の計算方法を以下の図を用いて説明いたします．
-まず，`previewLayer` に写る `Text` の文字を `edgeOCR.scanTexts` を用いて検出します．
-検出結果の `Detection<Text>` は赤色の `previewLayer` の領域の相対座標として，`(x, y) = (0.7, 0.65)` が得られます．
+まず，`previewLayer` に写る `Text` の文字を `edgeOCR.scan` を用いて検出します．
+検出結果の `Detection` は赤色の `previewLayer` の領域の相対座標として，`(x, y) = (0.7, 0.65)` が得られます．
 最後に，赤色の `previewLayer` の横と縦を先ほどの相対座標にそれぞれ掛けることで，赤色の領域における検出結果の絶対座標`(x, y) = (0.7 W, 0.65 * H)` が得られます．
 
-緑色の領域は `edgeOCR.scanTexts` がOCRする領域を表しており
+緑色の領域は `edgeOCR.scan` がOCRする領域を表しており
 緑色の領域の縦の長さはモデルのアスペクト比 `320x320（width x height）` から `320 / 320 * W = W` と得られます．
 緑色の領域の座標の詳細については，[「範囲を指定してスキャン」](./08-crop.md)を参照してください．
 
@@ -56,58 +56,58 @@
 
 実装は三つの部分からなります．
 
-1. `edgeOCR.scanTexts` の結果を表示する領域を設定する部分
-1. `edgeOCR.scanTexts` を用いて，文字を検出する部分
+1. `edgeOCR.scan` の結果を表示する領域を設定する部分
+1. `edgeOCR.scan` を用いて，文字を検出する部分
 1. 相対座標から絶対座標へ変換し，検出結果を表示する部分
 
 
-まず，`edgeOCR.scanTexts` の検出結果を表示するための `detectionLayer`（上図の赤の領域と同サイズ）を設定します．
+まず，`edgeOCR.scan` の検出結果を表示するための `detectionLayer`（上図の赤の領域と同サイズ）を設定します．
 このの設定は `setupLayers`　をオーバーライドして，以下のように実装します．
 そして，範囲をわかりやすくするために，検出範囲を緑色の外枠で囲むための `guideLayer` を設定します．
 こちらの詳細は [「範囲を指定してスキャン」](./08-crop.md)を参照してください．
 ```swift
 /// 認識するレイヤーの初期化
 override func setupLayers() {
-        // 検出範囲を示すガイドを設定
-        let width = previewBounds.width
-        let height = previewBounds.width * CGFloat(aspectRatio)
-        let defaultCropRect = CropRect()
-        let coropHorizontalBias = defaultCropRect.horizontalBias
-        let cropVerticalBias = defaultCropRect.verticalBias
-        let cropWidth = defaultCropRect.width
-        let cropHeight = defaultCropRect.height
-        guideLayer = CALayer()
-        guideLayer.frame = CGRect(
-            x: coropHorizontalBias * (previewBounds.width - width),
-            y: cropVerticalBias * (previewBounds.height - height),
-            width: cropWidth * width,
-            height: cropHeight * height)
+    // 検出範囲を示すガイドを設定
+    let width = viewBounds.width
+    let height = viewBounds.width * CGFloat(aspectRatio)
+    // デフォルトの検出領域である画面中央にガイドを表示
+    let coropHorizontalBias = 0.5
+    let cropVerticalBias = 0.5
+    guideLayer = CALayer()
+    guideLayer.frame = CGRect(
+        x: coropHorizontalBias * (viewBounds.width - width),
+        y: cropVerticalBias * (viewBounds.height - height),
+        width: width,
+        height: height)
 
-        let borderWidth = 3.0
-        let boxColor = UIColor.green.cgColor
-        guideLayer.borderWidth = borderWidth
-        guideLayer.borderColor = boxColor
+    let borderWidth = 3.0
+    let boxColor = UIColor.green.cgColor
+    guideLayer.borderWidth = borderWidth
+    guideLayer.borderColor = boxColor
 
-        // 検出結果を表示させるレイヤーを作成
-        detectionLayer = CALayer()
-        detectionLayer.frame = previewBounds
+    // 検出結果を表示させるレイヤーを作成
+    detectionLayer = CALayer()
+    detectionLayer.frame = viewBounds
 
-        DispatchQueue.main.async { [weak self] in
-            if let layer = self?.previewLayer {
-                layer.addSublayer(self!.detectionLayer)
-                layer.addSublayer(self!.guideLayer)
-            }
+    DispatchQueue.main.async { [weak self] in
+        if let layer = self?.previewLayer {
+            layer.addSublayer(self!.detectionLayer)
+            layer.addSublayer(self!.guideLayer)
         }
+    }
 }
 ```
+> [!NOTE]
+> `ScanOptions` を設定せずに使用した場合の，テキストスキャナのデフォルトの検出範囲は `loadModel` で指定したモデルのアスペクト比を保つように画面中央に表示されます．
+> 例えば，`model-d320x320` を使用した場合は，検出範囲は `320x320` のアスペクト比を保つように画面中央に表示されます．
 
-
-次に，`edgeOCR.scanTexts` を用いて，文字を検出するのは，「最もシンプルな例」と同じように以下のように実装します，
+次に，`edgeOCR.scan` を用いて，文字を検出するのは，「最もシンプルな例」と同じように以下のように実装します，
 ```swift
 func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
     let scanResult: ScanResult
     do {
-        scanResult = try edgeOCR.scanTexts(sampleBuffer, previewViewBounds: previewBounds)
+        scanResult = try edgeOCR.scan(sampleBuffer, viewBounds: viewBounds)
 
     } catch {
         os_log("Failed to scan texts: %@", type: .debug, error.localizedDescription)
@@ -134,7 +134,7 @@ func drawDetections(result: ScanResult) {
     CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
     detectionLayer.sublayers = nil
     for detection in result.getTextDetections() {
-        let text = detection.getScanObject().getText()
+        let text = detection.getText()
         if !text.isEmpty {
             let bbox = detection.getBoundingBox()
             drawDetection(bbox: bbox, text: text)

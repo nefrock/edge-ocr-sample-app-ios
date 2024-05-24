@@ -4,8 +4,8 @@
 
 
 ## 概要
-`ModelSettings` 構造体の `nToConfirm` に連続で同じテキストを読み取る回数を指定します．
-そして，`scanTexts` メソッドの返り値の `ScanObject` の `ScanConfirmationStatus` を確認することで，
+`ModelSettings` 構造体の `textNToConfirm` に連続で同じテキストを読み取る回数を指定します．
+そして，`Detection` オブジェクトの `ScanConfirmationStatus` を確認することで，
 連続で同じテキストを読み取ったかを判定することができます．
 
 この例の実装は
@@ -17,7 +17,7 @@
 
 ## テキストの複数回読み取り実装方法
 `EdgeOCRSample/Views/Main/MainView.swift` で読み取り回数の設定を行います．
-読み取り回数の設定は `ModelSettings` 構造体の `nToConfirm` によって，設定します．
+読み取り回数の設定は `ModelSettings` 構造体の `textNToConfirm` によって，設定します．
 読み取り回数を設定した `ModelSettings` 構造体を `EdgeVisionAPI` のメソッド `useModel` に引数として渡すことで，
 読み取り回数を設定したOCRを行うことができます．
 
@@ -28,7 +28,7 @@
 // MARK: - 複数回読み取り
 Button(action: {
     /* 5回読み取ったら確定 */
-    let modelSettings = ModelSettings(nToConfirm: 5)
+    let modelSettings = ModelSettings(textNToConfirm: 5)
     loadModelAndNavigate(destination: .nTimesScanView)
 }) {
     Text("複数回読み取り")
@@ -61,6 +61,8 @@ if status == ScanConfirmationStatus.Confirmed {
 複数回読み取りを行う間に、手ブレやカメラの移動などによって読み取り範囲が変化してしまうと、
 読み取り結果が異なってしまい、読み取り回数のカウントがリセットされてしまいます．
 そこで、以前の結果と読み取り結果を比較する前に `TextMapper` を用いて読み取り結果を正規化することで、読み取り範囲の変化による影響を軽減することができます．
+
+
 `TextMapper` クラスを継承し、`apply` メソッドを実装することで、TextMapperを作成します．
 読み取り対象が郵便番号なので、英字や記号を数字に変換する処理を実装しています．
 また、郵便番号のみを抽出するための正規表現も実装しています．
@@ -109,7 +111,7 @@ class PostcodeTextMapper: TextMapper {
 // MARK: - 複数回読み取り
 Button(action: {
     /* 5回読み取ったら確定 */
-    let modelSettings = ModelSettings(nToConfirm: 5)
+    let modelSettings = ModelSettings(textNToConfirm: 5)
     /* 郵便番号のテキストマッパーを設定 */
     modelSettings.setTextMapper(PostcodeTextMapper())
     loadModelAndNavigate(destination: .nTimesScanView)

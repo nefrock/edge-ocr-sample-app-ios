@@ -5,7 +5,7 @@
 
 ## 概要
 
-`scanBarcodes`メソッドを使用して，画像内のバーコードをスキャンすることができます。
+`scan`メソッドを使用して，画像内のバーコードをスキャンすることができます。
 
 この例の実装は
 `EdgeOCRSample/Views/Barcode/BarcodeViewController.swift` と　
@@ -24,10 +24,9 @@
 
 Button(action: {
     // *QRCodeの複数回読み取りを設定する*
-    let barcodeFormats = [(BarcodeFormat.QRCode, 5)]
-    let edgeOCR = EdgeOCR.getInstance()
-    edgeOCR.setBarcodesNToConfirm(barcodeFormats)
-
+    let barcodeFormats = [BarcodeFormat.QRCode: 5]
+    let modelSettings = ModelSettings(barcodeNToConfirm: barcodeFormats)
+    loadModelAndNavigate(destination: .barcodeView, "edgeocr_barcode_default", modelSettings: modelSettings)
     loadModelAndNavigate(destination: .barcodeView)
 }) {
     Text("バーコード読み取り")
@@ -36,8 +35,7 @@ Button(action: {
 ```
 
 `EdgeOCRSample/Views/BarcodeViewController.swift` でバーコードスキャンを実行しています．
-OCR の場合と基本的には同じですが、バーコードを読む場合は `scanTexts` の代わりに `scanBarcodes` を呼び出してください。
-また、`scanBarcodes` の第2引数には、`BarcodeScanOption` を用いて読みたいバーコードのフォーマットを指定します。
+`useModel` でバーコードの読めるモデルを選択し、OCRの場合と同じように `scan` メソッドを使用してバーコードをスキャンします．
 こちらのサンプルではすべてのバーコードのフォーマットを読み取るようにしていますが、
 リストで指定することで、複数のフォーマットを指定することも可能です．
 
@@ -45,14 +43,19 @@ OCR の場合と基本的には同じですが、バーコードを読む場合�
 `getStatus()` で `ScanConfirmationStatus.Confirmed` が返ります．
 本サンプルでは読み取り回数を超えたバーコードのみを結果として表示しています．
 
+> [!NOTE]
+> `ScanOptions` を設定せずに使用した場合の，テキストスキャナのデフォルトの検出範囲は入力画像の全体です．
+> そのため，`loadModel`の返り値の `ModelInformation` から得られるアスペクト比は `0` に設定されています．
+
+
 `showDialog()` でスキャン結果の表示後 `resetScanningState() `を呼び出すことで、
 EdgeOCR のスキャン状況をリセットしています.
 これにより、バーコードの確定までの読み取り回数をリセットすることができます.
 ```swift
-func showDialog(detections: [Detection<Barcode>]) {
+func showDialog(detections: [Barcode]) {
     var messages: [String] = []
     for detection in detections {
-        let text = detection.getScanObject().getText()
+        let text = detection.getText()
         messages.append(text)
     }
     self.messages = messages
@@ -64,15 +67,14 @@ func showDialog(detections: [Detection<Barcode>]) {
 }
 
 func drawDetections(result: ScanResult) {
-    var detections: [Detection<Barcode>] = []
+    var detections: [Barcode] = []
 
     CATransaction.begin()
     CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
     detectionLayer.sublayers = nil
     for detection in result.getBarcodeDetections() {
-        let text = detection.getScanObject().getText()
-        let status = detection.getStatus()
-        if status == ScanConfirmationStatus.Confirmed {
+        let text = detection.getText()
+        if detection.getStatus() == ScanConfirmationStatus.Confirmed {
             let bbox = detection.getBoundingBox()
             drawDetection(bbox: bbox, text: text)
             detections.append(detection)
@@ -90,7 +92,7 @@ func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBu
     do {
         // MARK: - バーコードの読み取り
 
-        scanResult = try edgeOCR.scanBracodes(sampleBuffer, barcodeScanOption: barcodeScanOption, previewViewBounds: previewBounds)
+        scanResult = try edgeOCR.scanBracodes(sampleBuffer, barcodeScanOption: barcodeScanOption, viewBounds: viewBounds)
 
     } catch {
         ...

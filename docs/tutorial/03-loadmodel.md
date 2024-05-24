@@ -14,18 +14,19 @@ EdgeOCRVisionAPI を用いて，モデルをロードします．
 ```swift
 func loadModel(
     path: String,
+    uid: String,
     modelSettings: EdgeOCRSwift.ModelSettings = ModelSettings()
 ) async throws -> ModelInformation? {
     let modelPath = Bundle.main.path(forResource: path, ofType: "")
     guard let modelPath = modelPath else {
-        throw EdgeError.notFound(description: "Not found models at given the path: \(path)")
+        throw EdgeError.notFound(description: "Not found models at the given path: \(path)")
     }
 
     let edgeOCR = try ModelBuilder().fromPath(modelPath).build()
     var model: Model?
     for candidate in edgeOCR.availableModels() {
         os_log("model candidate: %@", candidate.getUID())
-        if candidate.getUID() == "model-d320x320" {
+        if candidate.getUID() == uid {
             model = candidate
         }
     }
@@ -42,24 +43,25 @@ func loadModel(
 
 `loadModel` では `edgeOCR.useModel` を使用して，モデルをロードします．
 `edgeOCR.useModel` の第1引数には、`Model` を指定します．
-SDK のデフォルトでは `model-d256x64`， `model-d256x128`, `model-d320x160`, ``model-d320x320`, `model-d640x640` が指定できます．
+SDK のデフォルトでは `model-d256x64`， `model-d256x128`, `model-d320x160`, `model-d320x320`, `model-d640x640` が指定できます．
 `model-d640x640` は `model-d320x320` に比べて高精度のモデルで，OCRに時間がかかります．
 ユースケースやデバイスのスペックに合わせてどのモデルを使うかを選択していただけます．
 また，カスタマイズしたモデルを利用する場合もこちらで指定を行います．
 また `edgeOCR.useModel` の第2引数には、`ModelSettings` を指定することができます．
 `ModelSettings` では，モデルパラメータの設定や，検出結果のフィルタ設定，`TextMapper` の設定を行うことができます．
-
-バーコード読み取りのみを利用する場合は，モデルロードの必要はありません．
+バーコードモデルとしては、 `edgeocr_barcode_default` を指定してください．
 
 
 ```swift
 // モデルのロードと画面遷移
-func loadModelAndNavigate(destination: EdgeOCRSampleKind, modelSettings: ModelSettings = ModelSettings()) {
+func loadModelAndNavigate(destination: EdgeOCRSampleKind,
+                            uid: String = "model-d320x320",
+                            modelSettings: ModelSettings = ModelSettings()) {
     /* モデルをロード */
     Task {
         isLoading = true
         do {
-            let info = try await loadModel(path: modelPath, modelSettings: modelSettings)
+            let info = try await loadModel(path: modelPath, uid: uid, modelSettings: modelSettings)
             aspectRatio = info!.getAspectRatio()
             /* 画面遷移 */
             path.append(destination)
@@ -70,6 +72,7 @@ func loadModelAndNavigate(destination: EdgeOCRSampleKind, modelSettings: ModelSe
         isLoading = false
     }
 }
+
 
 ...
     // MARK: - 最もシンプルな例の実装
@@ -86,7 +89,7 @@ func loadModelAndNavigate(destination: EdgeOCRSampleKind, modelSettings: ModelSe
 
 
 ## GPU を使用するモデルのロードにかかる時間について
-GPU を使用するモデルは，初回のロード時のみロード時間が数秒かかります． 
+GPU を使用するモデルは，初回のロード時のみロード時間が数秒かかります．
 この時間はローエンドのデバイスほど時間がかかる傾向にあります．
 ただし 2 回目以降のロードは高速に処理され，アプリを削除しない限りはロードに数秒かかることはありません．
 

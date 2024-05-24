@@ -20,7 +20,7 @@ struct BarcodeImageView: View {
                     width: UIScreen.main.bounds.width * 0.8,
                     height: UIScreen.main.bounds.height * 0.5)
             Spacer().frame(height: 30)
-            BarcodeImageFotter(image: $image)
+            BarcodeImageFooter(image: $image)
         }
     }
 }

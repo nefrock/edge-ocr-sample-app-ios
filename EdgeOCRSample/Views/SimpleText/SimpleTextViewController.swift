@@ -16,9 +16,9 @@ class SimpleTextViewController: ViewController {
 
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         do {
-            let scanResult = try edgeOCR.scanTexts(sampleBuffer, previewViewBounds: previewBounds)
-            for detection in scanResult.getTextDetections() {
-                let text = detection.getScanObject().getText()
+            let scanResult = try edgeOCR.scan(sampleBuffer, viewBounds: viewBounds)
+            for detection in scanResult.getDetections() {
+                let text = detection.getText()
                 if !text.isEmpty {
                     os_log("detected: %@", type: .debug, text)
                 }

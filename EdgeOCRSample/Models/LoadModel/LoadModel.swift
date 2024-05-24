@@ -12,18 +12,19 @@ import os
 
 func loadModel(
     path: String,
+    uid: String,
     modelSettings: EdgeOCRSwift.ModelSettings = ModelSettings()
 ) async throws -> ModelInformation? {
     let modelPath = Bundle.main.path(forResource: path, ofType: "")
     guard let modelPath = modelPath else {
-        throw EdgeError.notFound(description: "Not found models at given the path: \(path)")
+        throw EdgeError.notFound(description: "Not found models at the given path: \(path)")
     }
 
     let edgeOCR = try ModelBuilder().fromPath(modelPath).build()
     var model: Model?
     for candidate in edgeOCR.availableModels() {
         os_log("model candidate: %@", candidate.getUID())
-        if candidate.getUID() == "model-d320x320" {
+        if candidate.getUID() == uid {
             model = candidate
         }
     }

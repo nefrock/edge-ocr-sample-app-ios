@@ -46,12 +46,14 @@ struct MainView: View {
     let licenseKey = ""
 
     // モデルのロードと画面遷移
-    func loadModelAndNavigate(destination: EdgeOCRSampleKind, modelSettings: ModelSettings = ModelSettings()) {
+    func loadModelAndNavigate(destination: EdgeOCRSampleKind,
+                              uid: String = "model-d320x320",
+                              modelSettings: ModelSettings = ModelSettings()) {
         /* モデルをロード */
         Task {
             isLoading = true
             do {
-                let info = try await loadModel(path: modelPath, modelSettings: modelSettings)
+                let info = try await loadModel(path: modelPath, uid: uid, modelSettings: modelSettings)
                 aspectRatio = info!.getAspectRatio()
                 /* 画面遷移 */
                 path.append(destination)
@@ -122,7 +124,7 @@ struct MainView: View {
 
                         Button(action: {
                             /* 5回読み取ったら確定 */
-                            let modelSettings = ModelSettings(nToConfirm: 5)
+                            let modelSettings = ModelSettings(textNToConfirm: 5)
                             /* 郵便番号のテキストマッパーを設定 */
                             modelSettings.setTextMapper(PostcodeTextMapper())
                             loadModelAndNavigate(destination: .nTimesScanView, modelSettings: modelSettings)
@@ -134,11 +136,9 @@ struct MainView: View {
 
                         Button(action: {
                             // *QRCodeの複数回読み取りを設定する*
-                            let barcodeFormats = [(BarcodeFormat.QRCode, 5)]
-                            let edgeOCR = EdgeOCR.getInstance()
-                            edgeOCR.setBarcodesNToConfirm(barcodeFormats)
-
-                            loadModelAndNavigate(destination: .barcodeView)
+                            let barcodeFormats = [BarcodeFormat.QRCode: 5]
+                            let modelSettings = ModelSettings(barcodeNToConfirm: barcodeFormats)
+                            loadModelAndNavigate(destination: .barcodeView, uid: "edgeocr_barcode_default", modelSettings: modelSettings)
                         }) {
                             Text("バーコード読み取り")
                         }
@@ -162,7 +162,8 @@ struct MainView: View {
                         // MARK: - バーコード画像読み取りの例の実装
 
                         Button(action: {
-                            loadModelAndNavigate(destination: .barcodeImageView)
+                            loadModelAndNavigate(destination: .barcodeImageView,
+                                                 uid: "edgeocr_barcode_default")
                         }) {
                             Text("バーコード画像読み取り")
                         }

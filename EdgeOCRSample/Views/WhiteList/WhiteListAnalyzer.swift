@@ -20,12 +20,12 @@ class WhiteListAnalyzer {
 
     init() {}
 
-    func analyze(_ detections: [Detection<Text>]) -> AnalyzerResult {
-        var targetDetections: [Detection<Text>] = []
-        var notTargetDetections: [Detection<Text>] = []
+    func analyze(_ detections: [Text]) -> AnalyzerResult {
+        var targetDetections: [Text] = []
+        var notTargetDetections: [Text] = []
 
         for detection in detections {
-            let text = detection.getScanObject().getText()
+            let text = detection.getText()
             // ホワイトリストに含まれているかどうかを判定
             if whiteList.contains(text) {
                 targetDetections.append(detection)

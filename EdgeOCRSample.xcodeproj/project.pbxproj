@@ -18,7 +18,6 @@
 		F96CC6F12BEB863C002A297C /* WhiteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96CC6F02BEB863C002A297C /* WhiteListViewController.swift */; };
 		F96CC6F32BEB8648002A297C /* WhiteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96CC6F22BEB8648002A297C /* WhiteListView.swift */; };
 		F96CC6F52BEB8F39002A297C /* WhiteListAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96CC6F42BEB8F39002A297C /* WhiteListAnalyzer.swift */; };
-		F97057872BF60999000CEB80 /* EdgeOCRSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F97057862BF60999000CEB80 /* EdgeOCRSwift */; };
 		F988897A2BCD5888001357D0 /* NTimesScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98889792BCD5888001357D0 /* NTimesScanViewController.swift */; };
 		F988897C2BCD5896001357D0 /* NTimesScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F988897B2BCD5896001357D0 /* NTimesScanView.swift */; };
 		F988897F2BCD688F001357D0 /* BarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F988897E2BCD688F001357D0 /* BarcodeViewController.swift */; };
@@ -27,15 +26,15 @@
 		F988898A2BCE13DF001357D0 /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98889892BCE13DF001357D0 /* DialogView.swift */; };
 		F988898D2BCE3BE6001357D0 /* BarcodeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F988898C2BCE3BE6001357D0 /* BarcodeImageView.swift */; };
 		F98889902BCE3D92001357D0 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F988898F2BCE3D92001357D0 /* UIImage.swift */; };
-		F98889922BCE3DF5001357D0 /* TextImageFotter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98889912BCE3DF5001357D0 /* TextImageFotter.swift */; };
+		F98889922BCE3DF5001357D0 /* TextImageFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98889912BCE3DF5001357D0 /* TextImageFooter.swift */; };
 		F98889942BCE414D001357D0 /* TextImageScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98889932BCE414C001357D0 /* TextImageScanner.swift */; };
 		F9BE82D82B8C593200514ECC /* LoadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BE82D72B8C593200514ECC /* LoadModel.swift */; };
 		F9BE82DB2B8C74BC00514ECC /* BoxesOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BE82DA2B8C74BC00514ECC /* BoxesOverlayViewController.swift */; };
-		F9C0B6B62BCE562A00F7EA5C /* BarcodeImageFotter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C0B6B52BCE562A00F7EA5C /* BarcodeImageFotter.swift */; };
+		F9C0B6B62BCE562A00F7EA5C /* BarcodeImageFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C0B6B52BCE562A00F7EA5C /* BarcodeImageFooter.swift */; };
 		F9C0B6B82BCE563600F7EA5C /* BarcodeImageScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C0B6B72BCE563600F7EA5C /* BarcodeImageScanner.swift */; };
 		F9C0B6BB2BCE5E9B00F7EA5C /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C0B6BA2BCE5E9B00F7EA5C /* FeedbackViewController.swift */; };
 		F9C0B6BD2BCE5EA700F7EA5C /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C0B6BC2BCE5EA700F7EA5C /* FeedbackView.swift */; };
-		F9C0B6BF2BCE616300F7EA5C /* FeedbackFotter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C0B6BE2BCE616300F7EA5C /* FeedbackFotter.swift */; };
+		F9C0B6BF2BCE616300F7EA5C /* FeedbackFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C0B6BE2BCE616300F7EA5C /* FeedbackFooter.swift */; };
 		F9C0B6C12BCE686000F7EA5C /* PostcodeTextMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C0B6C02BCE686000F7EA5C /* PostcodeTextMapper.swift */; };
 		F9CE84852B873BA8002BE6C8 /* EdgeOCRSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CE84842B873BA8002BE6C8 /* EdgeOCRSample.swift */; };
 		F9CE84892B873BA9002BE6C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9CE84882B873BA9002BE6C8 /* Assets.xcassets */; };
@@ -43,8 +42,8 @@
 		F9CE84A82B875312002BE6C8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CE84A72B875312002BE6C8 /* MainView.swift */; };
 		F9CE84AB2B87577B002BE6C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CE84AA2B87577B002BE6C8 /* ViewController.swift */; };
 		F9CE84B22B8B9D32002BE6C8 /* ActivationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CE84B12B8B9D32002BE6C8 /* ActivationModel.swift */; };
-		F9EE1EE82BF33D7700FFBDB6 /* EditDistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1EE72BF33D7700FFBDB6 /* EditDistanceView.swift */; };
-		F9EE1EEA2BF33D8500FFBDB6 /* EditDistanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1EE92BF33D8500FFBDB6 /* EditDistanceViewController.swift */; };
+		F9EE1EE82BF33D7700FFBDB6 /* EditDistanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1EE72BF33D7700FFBDB6 /* EditDistanceViewController.swift */; };
+		F9EE1EEA2BF33D8500FFBDB6 /* EditDistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1EE92BF33D8500FFBDB6 /* EditDistanceView.swift */; };
 		F9EE1EEC2BF33D9A00FFBDB6 /* EditDistanceAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1EEB2BF33D9A00FFBDB6 /* EditDistanceAnalyzer.swift */; };
 		F9EE1EF02BF33E5000FFBDB6 /* AnalyzerResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1EEF2BF33E5000FFBDB6 /* AnalyzerResult.swift */; };
 		F9EE1F042BF5B6B800FFBDB6 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1F032BF5B6B800FFBDB6 /* CALayer.swift */; };
@@ -83,15 +82,15 @@
 		F98889892BCE13DF001357D0 /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
 		F988898C2BCE3BE6001357D0 /* BarcodeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeImageView.swift; sourceTree = "<group>"; };
 		F988898F2BCE3D92001357D0 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
-		F98889912BCE3DF5001357D0 /* TextImageFotter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextImageFotter.swift; sourceTree = "<group>"; };
+		F98889912BCE3DF5001357D0 /* TextImageFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextImageFooter.swift; sourceTree = "<group>"; };
 		F98889932BCE414C001357D0 /* TextImageScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextImageScanner.swift; sourceTree = "<group>"; };
 		F9BE82D72B8C593200514ECC /* LoadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadModel.swift; sourceTree = "<group>"; };
 		F9BE82DA2B8C74BC00514ECC /* BoxesOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesOverlayViewController.swift; sourceTree = "<group>"; };
-		F9C0B6B52BCE562A00F7EA5C /* BarcodeImageFotter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeImageFotter.swift; sourceTree = "<group>"; };
+		F9C0B6B52BCE562A00F7EA5C /* BarcodeImageFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeImageFooter.swift; sourceTree = "<group>"; };
 		F9C0B6B72BCE563600F7EA5C /* BarcodeImageScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeImageScanner.swift; sourceTree = "<group>"; };
 		F9C0B6BA2BCE5E9B00F7EA5C /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		F9C0B6BC2BCE5EA700F7EA5C /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
-		F9C0B6BE2BCE616300F7EA5C /* FeedbackFotter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFotter.swift; sourceTree = "<group>"; };
+		F9C0B6BE2BCE616300F7EA5C /* FeedbackFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFooter.swift; sourceTree = "<group>"; };
 		F9C0B6C02BCE686000F7EA5C /* PostcodeTextMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostcodeTextMapper.swift; sourceTree = "<group>"; };
 		F9CE84812B873BA8002BE6C8 /* EdgeOCRSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdgeOCRSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CE84842B873BA8002BE6C8 /* EdgeOCRSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeOCRSample.swift; sourceTree = "<group>"; };
@@ -101,8 +100,8 @@
 		F9CE84A72B875312002BE6C8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F9CE84AA2B87577B002BE6C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F9CE84B12B8B9D32002BE6C8 /* ActivationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivationModel.swift; sourceTree = "<group>"; };
-		F9EE1EE72BF33D7700FFBDB6 /* EditDistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDistanceView.swift; sourceTree = "<group>"; };
-		F9EE1EE92BF33D8500FFBDB6 /* EditDistanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDistanceViewController.swift; sourceTree = "<group>"; };
+		F9EE1EE72BF33D7700FFBDB6 /* EditDistanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDistanceViewController.swift; sourceTree = "<group>"; };
+		F9EE1EE92BF33D8500FFBDB6 /* EditDistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDistanceView.swift; sourceTree = "<group>"; };
 		F9EE1EEB2BF33D9A00FFBDB6 /* EditDistanceAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDistanceAnalyzer.swift; sourceTree = "<group>"; };
 		F9EE1EEF2BF33E5000FFBDB6 /* AnalyzerResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzerResult.swift; sourceTree = "<group>"; };
 		F9EE1F032BF5B6B800FFBDB6 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
@@ -113,7 +112,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F97057872BF60999000CEB80 /* EdgeOCRSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				F98889872BCD68C9001357D0 /* TextImageView.swift */,
-				F98889912BCE3DF5001357D0 /* TextImageFotter.swift */,
+				F98889912BCE3DF5001357D0 /* TextImageFooter.swift */,
 				F98889932BCE414C001357D0 /* TextImageScanner.swift */,
 			);
 			path = TextImage;
@@ -192,7 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				F988898C2BCE3BE6001357D0 /* BarcodeImageView.swift */,
-				F9C0B6B52BCE562A00F7EA5C /* BarcodeImageFotter.swift */,
+				F9C0B6B52BCE562A00F7EA5C /* BarcodeImageFooter.swift */,
 				F9C0B6B72BCE563600F7EA5C /* BarcodeImageScanner.swift */,
 			);
 			path = BarcodeImage;
@@ -229,7 +227,7 @@
 			children = (
 				F9C0B6BA2BCE5E9B00F7EA5C /* FeedbackViewController.swift */,
 				F9C0B6BC2BCE5EA700F7EA5C /* FeedbackView.swift */,
-				F9C0B6BE2BCE616300F7EA5C /* FeedbackFotter.swift */,
+				F9C0B6BE2BCE616300F7EA5C /* FeedbackFooter.swift */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -329,8 +327,8 @@
 		F9EE1EE62BF33D5400FFBDB6 /* EditDistance */ = {
 			isa = PBXGroup;
 			children = (
-				F9EE1EE72BF33D7700FFBDB6 /* EditDistanceView.swift */,
-				F9EE1EE92BF33D8500FFBDB6 /* EditDistanceViewController.swift */,
+				F9EE1EE72BF33D7700FFBDB6 /* EditDistanceViewController.swift */,
+				F9EE1EE92BF33D8500FFBDB6 /* EditDistanceView.swift */,
 				F9EE1EEB2BF33D9A00FFBDB6 /* EditDistanceAnalyzer.swift */,
 			);
 			path = EditDistance;
@@ -362,7 +360,6 @@
 			);
 			name = EdgeOCRSample;
 			packageProductDependencies = (
-				F97057862BF60999000CEB80 /* EdgeOCRSwift */,
 			);
 			productName = EdgeOCRSample;
 			productReference = F9CE84812B873BA8002BE6C8 /* EdgeOCRSample.app */;
@@ -421,7 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F914ED1B2BCCE77E00899D8A /* SimpleTextView.swift in Sources */,
-				F9EE1EE82BF33D7700FFBDB6 /* EditDistanceView.swift in Sources */,
+				F9EE1EE82BF33D7700FFBDB6 /* EditDistanceViewController.swift in Sources */,
 				F9EE1EF02BF33E5000FFBDB6 /* AnalyzerResult.swift in Sources */,
 				F9EE1F042BF5B6B800FFBDB6 /* CALayer.swift in Sources */,
 				F9C0B6C12BCE686000F7EA5C /* PostcodeTextMapper.swift in Sources */,
@@ -430,8 +427,8 @@
 				F9C0B6BB2BCE5E9B00F7EA5C /* FeedbackViewController.swift in Sources */,
 				F988897C2BCD5896001357D0 /* NTimesScanView.swift in Sources */,
 				F96CC6F32BEB8648002A297C /* WhiteListView.swift in Sources */,
-				F9C0B6BF2BCE616300F7EA5C /* FeedbackFotter.swift in Sources */,
-				F98889922BCE3DF5001357D0 /* TextImageFotter.swift in Sources */,
+				F9C0B6BF2BCE616300F7EA5C /* FeedbackFooter.swift in Sources */,
+				F98889922BCE3DF5001357D0 /* TextImageFooter.swift in Sources */,
 				F96CC6F52BEB8F39002A297C /* WhiteListAnalyzer.swift in Sources */,
 				F98889812BCD6898001357D0 /* BarcodeView.swift in Sources */,
 				F914ED192BCCE44300899D8A /* CropView.swift in Sources */,
@@ -444,7 +441,7 @@
 				F98889882BCD68C9001357D0 /* TextImageView.swift in Sources */,
 				F988898D2BCE3BE6001357D0 /* BarcodeImageView.swift in Sources */,
 				F9BE82DB2B8C74BC00514ECC /* BoxesOverlayViewController.swift in Sources */,
-				F9EE1EEA2BF33D8500FFBDB6 /* EditDistanceViewController.swift in Sources */,
+				F9EE1EEA2BF33D8500FFBDB6 /* EditDistanceView.swift in Sources */,
 				F988897F2BCD688F001357D0 /* BarcodeViewController.swift in Sources */,
 				F9CE84852B873BA8002BE6C8 /* EdgeOCRSample.swift in Sources */,
 				F988898A2BCE13DF001357D0 /* DialogView.swift in Sources */,
@@ -452,7 +449,7 @@
 				F92DB4BA2BCD1513000A0E58 /* DetectionFilterView.swift in Sources */,
 				F914ED1D2BCCE7C500899D8A /* BoxesOverlayView.swift in Sources */,
 				F98889902BCE3D92001357D0 /* UIImage.swift in Sources */,
-				F9C0B6B62BCE562A00F7EA5C /* BarcodeImageFotter.swift in Sources */,
+				F9C0B6B62BCE562A00F7EA5C /* BarcodeImageFooter.swift in Sources */,
 				F988897A2BCD5888001357D0 /* NTimesScanViewController.swift in Sources */,
 				F9EE1EEC2BF33D9A00FFBDB6 /* EditDistanceAnalyzer.swift in Sources */,
 				F9CE84B22B8B9D32002BE6C8 /* ActivationModel.swift in Sources */,
@@ -522,7 +519,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_OBJC_INTEROP_MODE = objc;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -579,7 +576,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OBJC_INTEROP_MODE = objc;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
 			};
 			name = Release;
 		};
@@ -623,7 +620,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_INTEROP_MODE = objc;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -669,7 +666,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_INTEROP_MODE = objc;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -697,13 +694,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		F97057862BF60999000CEB80 /* EdgeOCRSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = EdgeOCRSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F9CE84792B873BA8002BE6C8 /* Project object */;
 }

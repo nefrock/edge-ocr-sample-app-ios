@@ -12,7 +12,7 @@
 
 フィードバックを送信するには `reportImage`　というメソッドを使用します．
 ```swift
-public func reportImage(_ image: CMSampleBuffer, userMessage: String, previewViewBounds: CGRect) throws -> ScanResult
+public func reportImage(_ image: CMSampleBuffer, userMessage: String, viewBounds: CGRect) throws -> ScanResult
 ```
 
 メソッドを実行すると画像に対してスキャンが行われ，画像と結果が弊社のサーバーに送信されます．
@@ -28,7 +28,8 @@ public func reportImage(_ image: CMSampleBuffer, userMessage: String, previewVie
 
 ## 画像のフィードバックの実装方法
 
-app/src/main/java/com/nefrock/edgeocr_example/report/ReportScannerActivity.java に、ボタンを押すと現在の画面をフィードバックする機能を実装しています．
+`EdgeOCRSample/Views/Feedback/FeedbackView.swift` 
+に、ボタンを押すと現在の画面をフィードバックする機能を実装しています．
 ご自身のアプリに組み込む場合は、こちらのコードを参考にしてください．
 ```swift
 func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -39,7 +40,7 @@ func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBu
             let _ = try edgeOCR.reportImage(
                 sampleBuffer,
                 userMessage: "",
-                previewViewBounds: previewBounds)
+                viewBounds: viewBounds)
             Task { @MainActor in
                 sendFlag = false
             }

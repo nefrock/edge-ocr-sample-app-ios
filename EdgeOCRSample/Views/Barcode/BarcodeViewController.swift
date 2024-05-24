@@ -25,7 +25,7 @@ class BarcodeViewController: ViewController {
 
     // MARK: - バーコードスキャンオプション
 
-    private let barcodeScanOption = BarcodeScanOption(targetFormats: [BarcodeFormat.AnyFormat])
+    private let scanOptions = ScanOptions(targetFormats: [BarcodeFormat.AnyFormat])
 
     init(
         aspectRatio: Binding<Double>,
@@ -44,19 +44,18 @@ class BarcodeViewController: ViewController {
 
     override func setupLayers() {
         // 検出範囲を示すガイドを設定
-        let width = previewBounds.width
-        let height = previewBounds.height
-        let cropRect = barcodeScanOption.getCropRect()
-        let coropHorizontalBias = cropRect.horizontalBias
-        let cropVerticalBias = cropRect.verticalBias
-        let cropWidth = cropRect.width
-        let cropHeight = cropRect.height
+        let width = viewBounds.width
+        let height = viewBounds.height
+        // デフォルトの検出領域である画面中央にガイドを表示
+        let coropHorizontalBias = 0.5
+        let cropVerticalBias = 0.5
         guideLayer = CALayer()
         guideLayer.frame = CGRect(
-            x: coropHorizontalBias * (previewBounds.width - width),
-            y: cropVerticalBias * (previewBounds.height - height),
-            width: cropWidth * width,
-            height: cropHeight * height)
+            x: coropHorizontalBias * (viewBounds.width - width),
+            y: cropVerticalBias * (viewBounds.height - height),
+            width: width,
+            height: height)
+        print(viewBounds.width, viewBounds.height, width, height)
 
         let borderWidth = 3.0
         let boxColor = UIColor.green.cgColor
@@ -65,7 +64,7 @@ class BarcodeViewController: ViewController {
 
         // 検出結果を表示させるレイヤーを作成
         detectionLayer = CALayer()
-        detectionLayer.frame = previewBounds
+        detectionLayer.frame = viewBounds
 
         DispatchQueue.main.async { [weak self] in
             if let layer = self?.previewLayer {
@@ -109,11 +108,10 @@ class BarcodeViewController: ViewController {
         detectionLayer.addSublayer(boxLayer)
     }
 
-    func showDialog(detections: [Detection<Barcode>]) {
+    func showDialog(detections: [Barcode]) {
         var messages: [String] = []
         for detection in detections {
-            let text = detection.getScanObject().getText()
-            messages.append(text)
+            messages.append(detection.getText())
         }
         self.messages = messages
         showDialog = true
@@ -124,17 +122,15 @@ class BarcodeViewController: ViewController {
     }
 
     func drawDetections(result: ScanResult) {
-        var detections: [Detection<Barcode>] = []
+        var detections: [Barcode] = []
 
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         detectionLayer.sublayers = nil
         for detection in result.getBarcodeDetections() {
-            let text = detection.getScanObject().getText()
-            let status = detection.getStatus()
-            if status == ScanConfirmationStatus.Confirmed {
+            if detection.getStatus() == ScanConfirmationStatus.Confirmed {
                 let bbox = detection.getBoundingBox()
-                drawDetection(bbox: bbox, text: text)
+                drawDetection(bbox: bbox, text: detection.getText())
                 detections.append(detection)
             }
         }
@@ -150,7 +146,7 @@ class BarcodeViewController: ViewController {
         do {
             // MARK: - バーコードの読み取り
 
-            scanResult = try edgeOCR.scanBracodes(sampleBuffer, barcodeScanOption: barcodeScanOption, previewViewBounds: previewBounds)
+            scanResult = try edgeOCR.scan(sampleBuffer, scanOptions: scanOptions, viewBounds: viewBounds)
 
         } catch {
             os_log("Failed to scan texts: %@", type: .debug, error.localizedDescription)

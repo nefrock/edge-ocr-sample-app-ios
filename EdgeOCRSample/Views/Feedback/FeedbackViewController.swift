@@ -35,7 +35,7 @@ class FeedbackViewController: ViewController {
                 let _ = try edgeOCR.reportImage(
                     sampleBuffer,
                     userMessage: "",
-                    previewViewBounds: previewBounds)
+                    viewBounds: viewBounds)
                 Task { @MainActor in
                     sendFlag = false
                 }

@@ -25,8 +25,8 @@ EdgeOCRでは，テキスト範囲の検出 -> テキスト認識の流れで OC
 
 ```swift
 class CenterDetectionFilter: DetectionFilter {
-    override func filter(_ detections: [Detection<Text>]) -> [Detection<Text>] {
-        var filterd_detections: [Detection<Text>] = []
+    override func filter(_ detections: [Detection]) -> [Detection] {
+        var filterd_detections: [Detection] = []
         if detections.count > 0 {
             var most_centered_box = detections[0]
             var distanceFromCenter = 100.0
@@ -42,7 +42,7 @@ class CenterDetectionFilter: DetectionFilter {
         return filterd_detections
     }
 
-    private func calcDistanceFromCenter(detection: Detection<Text>) -> CGFloat {
+    private func calcDistanceFromCenter(detection: Detection) -> CGFloat {
         let bbox = detection.getBoundingBox()
         let top = bbox.minY
         let left = bbox.minX
@@ -61,8 +61,8 @@ class CenterDetectionFilter: DetectionFilter {
 
 `DetectionFilter` クラスを継承し，`filter` メソッドを実装することで，検出されたテキストをフィルタリングすることができます．
 画像内に対して検出されたテキストの範囲の配列が引数として渡されるので，このリストを加工して返すことでフィルタを実現します．
-テキストの範囲を `Detection<Text>` として取得し，フィルタの実装を行います．
-文字情報の読み取りはまだ行われていないので，`ScanObject` の情報は利用できない点にご注意ください．
+テキストの範囲を `Detection` として取得し，フィルタの実装を行います．
+文字情報の読み取りはまだ行われていないので，`Text` または `Barcode` にキャストすることはできません。
 
 
 作成したフィルタをEdgeOCRに設定するには，`setDetectionFilter` メソッドを用います．

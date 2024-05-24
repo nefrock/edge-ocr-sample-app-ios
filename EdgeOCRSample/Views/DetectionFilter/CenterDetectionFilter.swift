@@ -11,8 +11,8 @@ import Foundation
 // MARK: - 中心に最も近いテキストのみを認識する
 
 class CenterDetectionFilter: DetectionFilter {
-    override func filter(_ detections: [Detection<Text>]) -> [Detection<Text>] {
-        var filteredDetections: [Detection<Text>] = []
+    override func filter(_ detections: [Detection]) -> [Detection] {
+        var filteredDetections: [Detection] = []
         if detections.count > 0 {
             var mostCenteredBox = detections[0]
             var distanceFromCenter = 100.0
@@ -25,10 +25,10 @@ class CenterDetectionFilter: DetectionFilter {
             }
             filteredDetections.append(mostCenteredBox)
         }
-        return detections
+        return filteredDetections
     }
 
-    private func calcDistanceFromCenter(detection: Detection<Text>) -> CGFloat {
+    private func calcDistanceFromCenter(detection: Detection) -> CGFloat {
         let bbox = detection.getBoundingBox()
         let top = bbox.minY
         let left = bbox.minX
