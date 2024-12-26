@@ -24,7 +24,7 @@
 実装方法について説明を行う前に，SDK が解析する画像の範囲と検出結果の相対座標について説明を行います．
 
 まず，`edgeOCR.scan` が解析する範囲は，指定したモデルに依存します．
-ここではデフォルトで提供されている `model-large` を例に説明を行っていきます．
+ここではデフォルトで提供されている `model-d320x320` を例に説明を行っていきます．
 
 モデルはインプットとして取れる画像のアスペクト比を持っており，
 `model-d320x320` では`320x320（width x height）` のアスペクト比の画像をインプットの画像として受け取ることを想定しています．
@@ -36,13 +36,13 @@
 <img src="./imgs/06-boxes-overlay/scan-area.jpeg" width="300">
 
 
-たとえば SDK に入力する画像のサイズを `360x720` とすると，モデルに渡される画像の大きさは，横幅はそのままの `360` で，縦幅が `360x320/320 = 360` となります．
+たとえば SDK に入力する画像のサイズを `360x720` とすると，モデルに渡される画像の大きさは，横幅はそのままの `360` で，縦幅が `360 * 320 / 320 = 360` となります．
 
-次に，`edgeOCR.scan` の検出結果を表す `Detection` の `getBoundingBox`メソッドで得られる座標は `scan` に入力した `previewLayer` (赤色の領域）の横・縦を1に正規化した相対座標で表されます．
+次に，`edgeOCR.scan` の検出結果を表す `Detection` の `getBoundingBox`メソッドで得られる座標は `scan` に入力した `previewLayer` (赤色の領域）の縦・横を1に正規化した相対座標で表されます．
 先ほどの，`model-d320x320` を使用した際の，検出結果の `detectionLayer` における絶対座標の計算方法を以下の図を用いて説明いたします．
 まず，`previewLayer` に写る `Text` の文字を `edgeOCR.scan` を用いて検出します．
 検出結果の `Detection` は赤色の `previewLayer` の領域の相対座標として，`(x, y) = (0.7, 0.65)` が得られます．
-最後に，赤色の `previewLayer` の横と縦を先ほどの相対座標にそれぞれ掛けることで，赤色の領域における検出結果の絶対座標`(x, y) = (0.7 W, 0.65 * H)` が得られます．
+最後に，赤色の `previewLayer` の横と縦を先ほどの相対座標にそれぞれ掛けることで，赤色の領域における検出結果の絶対座標`(x, y) = (0.7 * W, 0.65 * H)` が得られます．
 
 緑色の領域は `edgeOCR.scan` がOCRする領域を表しており
 緑色の領域の縦の長さはモデルのアスペクト比 `320x320（width x height）` から `320 / 320 * W = W` と得られます．
@@ -72,11 +72,11 @@ override func setupLayers() {
     let width = viewBounds.width
     let height = viewBounds.width * CGFloat(aspectRatio)
     // デフォルトの検出領域である画面中央にガイドを表示
-    let coropHorizontalBias = 0.5
+    let cropHorizontalBias = 0.5
     let cropVerticalBias = 0.5
     guideLayer = CALayer()
     guideLayer.frame = CGRect(
-        x: coropHorizontalBias * (viewBounds.width - width),
+        x: cropHorizontalBias * (viewBounds.width - width),
         y: cropVerticalBias * (viewBounds.height - height),
         width: width,
         height: height)
