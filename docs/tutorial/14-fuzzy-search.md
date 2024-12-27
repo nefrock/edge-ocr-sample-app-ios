@@ -1,9 +1,9 @@
-# マスターデータを用いたOCR (曖昧一致)
+# マスターデータを用いた OCR (曖昧一致)
 
 このチュートリアルでは，編集距離を用いて一定の誤差を許容して，マスターデータ（ホワイトリスト）から文字を検出する方法を説明いたします．
 
-
 ## 概要
+
 検出結果のテキストをマスターデータに登録されている文字列と比較し，編集距離が一定以下の場合に文字を検出します．
 そして，テキストを検出した場合には，ダイアログを表示します．
 
@@ -14,13 +14,14 @@
 `EdgeOCRSample/Views/Main/MainView.swift`，
 に実装されていますので，ご参考になさってください．
 
-
 ## 編集距離とは
-編集距離とは，文字列間の類似度を表す指標の一つです．
-編集距離は，一方の文字列をもう一方の文字列に変換するために必要な *挿入*, *削除*, *置換* の三つの操作の最小回数を表します．
 
-例えば，`kitten` と `sitting` の編集距離は3です．
+編集距離とは，文字列間の類似度を表す指標の一つです．
+編集距離は，一方の文字列をもう一方の文字列に変換するために必要な _挿入_, _削除_, _置換_ の三つの操作の最小回数を表します．
+
+例えば，`kitten` と `sitting` の編集距離は 3 です．
 以下のように変換することで，`kitten` を `sitting` に変換することができます．
+
 ```
                   kitten
 -(k を s に置換)-> sitten
@@ -30,14 +31,14 @@
 
 詳しくは，[Wikipedia](https://ja.wikipedia.org/wiki/%E7%B7%A8%E9%9B%86%E8%B7%9D%E9%9B%A2) を参照してください．
 
+## マスターデータを用いた OCR (曖昧一致)の実装
 
-## マスターデータを用いたOCR (曖昧一致)の実装
 `EdgeOCRSample/Views/EditDistance/EditDistanceAnalyzer.swift` に実装されている `EditDistanceAnalyzer` クラスを使用して，検出結果とマスターデータの比較を行います．
-その際に，検出結果とマスターデータに含まれている文字列との編集距離を計算し，一定以下の場合に文字を検出します．
+その際に，検出結果とマスターデータに含まれている文字列との編集距離を `FuzzySearch` クラスを使用して，一定以下の場合に文字を検出します．
 
 ```swift
-class EditDistanceAnalyzer {
-    let candidates: Set = [
+class FuzzySearchAnalyzer {
+    let candidates: [String] = [
         "東京都新宿区",
         "群馬県前橋市",
         "神奈川県横浜市",
@@ -45,25 +46,15 @@ class EditDistanceAnalyzer {
         "沖縄県那覇市",
         "北海道札幌市",
     ]
+    let fuzzySearch = FuzzySearch(FuzzySearch.DistanceType.editDistance)
 
-    init() {}
-
-    // 二つの文字列の編集距離を計算
-    private static func editDistance(_ s0: String, s1: String) -> Int {
-        var matrix = [[Int]](repeating: [Int](repeating: 0, count: s1.count + 1), count: s0.count + 1)
-        for i in 0...s0.count {
-            matrix[i][0] = i
+    init() {
+        do {
+            try fuzzySearch.loadWeight(FuzzySearch.WeightType.NNDistance)
+            try fuzzySearch.loadMasterData(candidates)
+        } catch {
+            os_log("Failed to load weight or master data: %s", log: .default, type: .error, error.localizedDescription)
         }
-        for j in 0...s1.count {
-            matrix[0][j] = j
-        }
-        for i in 1...s0.count {
-            for j in 1...s1.count {
-                let cost = s0[s0.index(s0.startIndex, offsetBy: i - 1)] == s1[s1.index(s1.startIndex, offsetBy: j - 1)] ? 0 : 1
-                matrix[i][j] = min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost)
-            }
-        }
-        return matrix[s0.count][s1.count]
     }
 
     func analyze(_ detections: [Text], minDist: Int) -> AnalyzerResult {
@@ -71,18 +62,20 @@ class EditDistanceAnalyzer {
         var notTargetDetections = [Text]()
 
         for detection in detections {
-            for candidate in candidates {
-                let text = detection.getText()
-                var dist = minDist + 1
-                if !text.isEmpty {
-                    dist = EditDistanceAnalyzer.editDistance(text, s1: candidate)
+            var targetDetection: Text? = nil
+            let text = detection.getText()
+            let ret = fuzzySearch.calcSimilarityWithMasterData(text, parallel: true, normalized: false)
+            if let ret = ret {
+                let (matched, dist) = ret
+                if dist <= Double(minDist) {
+                    detection.setText(matched)
+                    targetDetection = detection
                 }
-                if dist <= minDist {
-                    detection.setText(candidate)
-                    targetDetections.append(detection)
-                } else {
-                    notTargetDetections.append(detection)
-                }
+            }
+            if let targetDetection = targetDetection {
+                targetDetections.append(targetDetection)
+            } else {
+                notTargetDetections.append(detection)
             }
         }
 
@@ -92,6 +85,15 @@ class EditDistanceAnalyzer {
     }
 }
 ```
+
+`FuzzySearch` クラスでは、`loadWeight` メソッドで重みを読み込み，`loadMasterData` メソッドでマスターデータを読み込みます．
+そして、`calcSimilarityWithMasterData` メソッドで検出結果とマスターデータの編集距離を計算します．
+`loadWeight` メソッドは，`FuzzySearch.WeightType` によって重みを指定します．
+使用できる重みは、以下の三つです。
+
+- `FuzzySearch.WeightType.Default`: デフォルトの重み
+- `FuzzySearch.WeightType.Disabled`: 重みを使用しません．
+- `FuzzySearch.WeightType.NNDistance`: ニューラルネットワークを使用して算出した類似度重み
 
 次に，`EdgeOCRSample/Views/EditDistance/EditDistanceViewController.swift` では，`EditDistanceAnalyzer` クラスを使用して，検出結果とマスターデータの比較を行います．
 
@@ -131,3 +133,9 @@ func drawDetections(result: ScanResult) {
     CATransaction.commit()
 }
 ```
+
+## 次のステップ
+
+次は正規表現を用いた曖昧一致について説明します．
+
+↪️ [正規表現を用いた検索（曖昧一致）](15-fuzzy-regex.md)

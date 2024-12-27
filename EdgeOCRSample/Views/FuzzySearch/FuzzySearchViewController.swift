@@ -11,7 +11,7 @@ import os
 import SwiftUI
 import UIKit
 
-class EditDistanceViewController: ViewController {
+class FuzzySearchViewController: ViewController {
     private let edgeOCR = EdgeOCR.getInstance()
     var detectionLayer: CALayer!
     var guideLayer: CALayer!
@@ -25,7 +25,7 @@ class EditDistanceViewController: ViewController {
 
     // MARK: - 編集距離アナライザーを初期化
 
-    var analyzer = EditDistanceAnalyzer()
+    var analyzer = FuzzySearchAnalyzer()
 
     init(
         aspectRatio: Binding<Double>,
@@ -159,22 +159,22 @@ class EditDistanceViewController: ViewController {
     }
 }
 
-struct HostedEditDistanceViewController: UIViewControllerRepresentable {
+struct HostedFuzzySearchViewController: UIViewControllerRepresentable {
     @Binding var aspectRatio: Double
     @Binding var showDialog: Bool
     @Binding var messages: [String]
 
-    func makeUIViewController(context: Context) -> EditDistanceViewController {
-        return EditDistanceViewController(aspectRatio: $aspectRatio,
-                                          showDialog: $showDialog,
-                                          messages: $messages)
+    func makeUIViewController(context: Context) -> FuzzySearchViewController {
+        return FuzzySearchViewController(aspectRatio: $aspectRatio,
+                                         showDialog: $showDialog,
+                                         messages: $messages)
     }
 
-    func updateUIViewController(_ uiViewController: EditDistanceViewController, context: Context) {}
+    func updateUIViewController(_ uiViewController: FuzzySearchViewController, context: Context) {}
 }
 
 #Preview {
-    HostedEditDistanceViewController(
+    HostedFuzzySearchViewController(
         aspectRatio: .constant(1.0),
         showDialog: .constant(false),
         messages: .constant(["東京都新宿区"]))

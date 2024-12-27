@@ -15,6 +15,11 @@
 		F92DB4BA2BCD1513000A0E58 /* DetectionFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92DB4B92BCD1513000A0E58 /* DetectionFilterView.swift */; };
 		F92DB4BC2BCD16ED000A0E58 /* CenterDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92DB4BB2BCD16ED000A0E58 /* CenterDetectionFilter.swift */; };
 		F93D2AAF2B8C20CA0024259C /* SimpleTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93D2AAE2B8C20CA0024259C /* SimpleTextViewController.swift */; };
+		F95B21172D1D2D75004C0646 /* FuzzySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95B21142D1D2D75004C0646 /* FuzzySearchView.swift */; };
+		F95B21182D1D2D75004C0646 /* FuzzySearchAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95B21152D1D2D75004C0646 /* FuzzySearchAnalyzer.swift */; };
+		F95B211C2D1D2E69004C0646 /* FuzzyRegexAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95B211B2D1D2E69004C0646 /* FuzzyRegexAnalyzer.swift */; };
+		F95B211D2D1D2E69004C0646 /* FuzzyRegexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95B211A2D1D2E69004C0646 /* FuzzyRegexView.swift */; };
+		F95B211E2D1D2E69004C0646 /* FuzzyRegexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95B21192D1D2E69004C0646 /* FuzzyRegexViewController.swift */; };
 		F96CC6F12BEB863C002A297C /* WhiteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96CC6F02BEB863C002A297C /* WhiteListViewController.swift */; };
 		F96CC6F32BEB8648002A297C /* WhiteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96CC6F22BEB8648002A297C /* WhiteListView.swift */; };
 		F96CC6F52BEB8F39002A297C /* WhiteListAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96CC6F42BEB8F39002A297C /* WhiteListAnalyzer.swift */; };
@@ -42,9 +47,7 @@
 		F9CE84A82B875312002BE6C8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CE84A72B875312002BE6C8 /* MainView.swift */; };
 		F9CE84AB2B87577B002BE6C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CE84AA2B87577B002BE6C8 /* ViewController.swift */; };
 		F9CE84B22B8B9D32002BE6C8 /* ActivationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CE84B12B8B9D32002BE6C8 /* ActivationModel.swift */; };
-		F9EE1EE82BF33D7700FFBDB6 /* EditDistanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1EE72BF33D7700FFBDB6 /* EditDistanceViewController.swift */; };
-		F9EE1EEA2BF33D8500FFBDB6 /* EditDistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1EE92BF33D8500FFBDB6 /* EditDistanceView.swift */; };
-		F9EE1EEC2BF33D9A00FFBDB6 /* EditDistanceAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1EEB2BF33D9A00FFBDB6 /* EditDistanceAnalyzer.swift */; };
+		F9EE1EE82BF33D7700FFBDB6 /* FuzzySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1EE72BF33D7700FFBDB6 /* FuzzySearchViewController.swift */; };
 		F9EE1EF02BF33E5000FFBDB6 /* AnalyzerResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1EEF2BF33E5000FFBDB6 /* AnalyzerResult.swift */; };
 		F9EE1F042BF5B6B800FFBDB6 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE1F032BF5B6B800FFBDB6 /* CALayer.swift */; };
 /* End PBXBuildFile section */
@@ -71,6 +74,11 @@
 		F92DB4B92BCD1513000A0E58 /* DetectionFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionFilterView.swift; sourceTree = "<group>"; };
 		F92DB4BB2BCD16ED000A0E58 /* CenterDetectionFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterDetectionFilter.swift; sourceTree = "<group>"; };
 		F93D2AAE2B8C20CA0024259C /* SimpleTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTextViewController.swift; sourceTree = "<group>"; };
+		F95B21142D1D2D75004C0646 /* FuzzySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuzzySearchView.swift; sourceTree = "<group>"; };
+		F95B21152D1D2D75004C0646 /* FuzzySearchAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuzzySearchAnalyzer.swift; sourceTree = "<group>"; };
+		F95B21192D1D2E69004C0646 /* FuzzyRegexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuzzyRegexViewController.swift; sourceTree = "<group>"; };
+		F95B211A2D1D2E69004C0646 /* FuzzyRegexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuzzyRegexView.swift; sourceTree = "<group>"; };
+		F95B211B2D1D2E69004C0646 /* FuzzyRegexAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuzzyRegexAnalyzer.swift; sourceTree = "<group>"; };
 		F96CC6F02BEB863C002A297C /* WhiteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteListViewController.swift; sourceTree = "<group>"; };
 		F96CC6F22BEB8648002A297C /* WhiteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteListView.swift; sourceTree = "<group>"; };
 		F96CC6F42BEB8F39002A297C /* WhiteListAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteListAnalyzer.swift; sourceTree = "<group>"; };
@@ -100,9 +108,7 @@
 		F9CE84A72B875312002BE6C8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F9CE84AA2B87577B002BE6C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F9CE84B12B8B9D32002BE6C8 /* ActivationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivationModel.swift; sourceTree = "<group>"; };
-		F9EE1EE72BF33D7700FFBDB6 /* EditDistanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDistanceViewController.swift; sourceTree = "<group>"; };
-		F9EE1EE92BF33D8500FFBDB6 /* EditDistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDistanceView.swift; sourceTree = "<group>"; };
-		F9EE1EEB2BF33D9A00FFBDB6 /* EditDistanceAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDistanceAnalyzer.swift; sourceTree = "<group>"; };
+		F9EE1EE72BF33D7700FFBDB6 /* FuzzySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuzzySearchViewController.swift; sourceTree = "<group>"; };
 		F9EE1EEF2BF33E5000FFBDB6 /* AnalyzerResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzerResult.swift; sourceTree = "<group>"; };
 		F9EE1F032BF5B6B800FFBDB6 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,6 +150,16 @@
 				F914ED1A2BCCE77E00899D8A /* SimpleTextView.swift */,
 			);
 			path = SimpleText;
+			sourceTree = "<group>";
+		};
+		F95B21122D1D2D62004C0646 /* FuzzyRegex */ = {
+			isa = PBXGroup;
+			children = (
+				F95B21192D1D2E69004C0646 /* FuzzyRegexViewController.swift */,
+				F95B211A2D1D2E69004C0646 /* FuzzyRegexView.swift */,
+				F95B211B2D1D2E69004C0646 /* FuzzyRegexAnalyzer.swift */,
+			);
+			path = FuzzyRegex;
 			sourceTree = "<group>";
 		};
 		F96CC6EF2BEB862A002A297C /* WhiteList */ = {
@@ -289,20 +305,21 @@
 		F9CE84AF2B8B9958002BE6C8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F9EE1EEE2BF33E3D00FFBDB6 /* Utils */,
-				F9EE1EE62BF33D5400FFBDB6 /* EditDistance */,
-				F96CC6EF2BEB862A002A297C /* WhiteList */,
-				F9C0B6B92BCE5E7E00F7EA5C /* Feedback */,
-				F988898B2BCE3BC5001357D0 /* BarcodeImage */,
-				F98889842BCD68AC001357D0 /* TextImage */,
 				F988897D2BCD687F001357D0 /* Barcode */,
-				F98889782BCD5859001357D0 /* NTimesScan */,
-				F92DB4B62BCD14EA000A0E58 /* DetectionFilter */,
-				F914ED102BC92F2D00899D8A /* Crop */,
+				F988898B2BCE3BC5001357D0 /* BarcodeImage */,
 				F9BE82D92B8C749900514ECC /* BoxesOverlay */,
 				F9CE84A92B875764002BE6C8 /* Common */,
+				F914ED102BC92F2D00899D8A /* Crop */,
+				F92DB4B62BCD14EA000A0E58 /* DetectionFilter */,
+				F9C0B6B92BCE5E7E00F7EA5C /* Feedback */,
+				F95B21122D1D2D62004C0646 /* FuzzyRegex */,
+				F9EE1EE62BF33D5400FFBDB6 /* FuzzySearch */,
 				F9CE84A62B875302002BE6C8 /* Main */,
+				F98889782BCD5859001357D0 /* NTimesScan */,
 				F93D2AAD2B8C20930024259C /* SimpleText */,
+				F98889842BCD68AC001357D0 /* TextImage */,
+				F9EE1EEE2BF33E3D00FFBDB6 /* Utils */,
+				F96CC6EF2BEB862A002A297C /* WhiteList */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,14 +341,14 @@
 			path = Activation;
 			sourceTree = "<group>";
 		};
-		F9EE1EE62BF33D5400FFBDB6 /* EditDistance */ = {
+		F9EE1EE62BF33D5400FFBDB6 /* FuzzySearch */ = {
 			isa = PBXGroup;
 			children = (
-				F9EE1EE72BF33D7700FFBDB6 /* EditDistanceViewController.swift */,
-				F9EE1EE92BF33D8500FFBDB6 /* EditDistanceView.swift */,
-				F9EE1EEB2BF33D9A00FFBDB6 /* EditDistanceAnalyzer.swift */,
+				F9EE1EE72BF33D7700FFBDB6 /* FuzzySearchViewController.swift */,
+				F95B21142D1D2D75004C0646 /* FuzzySearchView.swift */,
+				F95B21152D1D2D75004C0646 /* FuzzySearchAnalyzer.swift */,
 			);
-			path = EditDistance;
+			path = FuzzySearch;
 			sourceTree = "<group>";
 		};
 		F9EE1EEE2BF33E3D00FFBDB6 /* Utils */ = {
@@ -360,6 +377,11 @@
 			);
 			name = EdgeOCRSample;
 			packageProductDependencies = (
+				F95B20BD2D1D2057004C0646 /* EdgeOCRSwift */,
+				F95B21202D1D3652004C0646 /* EdgeOCRSwift */,
+				F95B21232D1D379B004C0646 /* EdgeOCRSwift */,
+				F95B21262D1D4455004C0646 /* EdgeOCRSwift */,
+				F95B21292D1D44C6004C0646 /* EdgeOCRSwift */,
 			);
 			productName = EdgeOCRSample;
 			productReference = F9CE84812B873BA8002BE6C8 /* EdgeOCRSample.app */;
@@ -418,8 +440,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F914ED1B2BCCE77E00899D8A /* SimpleTextView.swift in Sources */,
-				F9EE1EE82BF33D7700FFBDB6 /* EditDistanceViewController.swift in Sources */,
+				F9EE1EE82BF33D7700FFBDB6 /* FuzzySearchViewController.swift in Sources */,
 				F9EE1EF02BF33E5000FFBDB6 /* AnalyzerResult.swift in Sources */,
+				F95B21172D1D2D75004C0646 /* FuzzySearchView.swift in Sources */,
+				F95B21182D1D2D75004C0646 /* FuzzySearchAnalyzer.swift in Sources */,
 				F9EE1F042BF5B6B800FFBDB6 /* CALayer.swift in Sources */,
 				F9C0B6C12BCE686000F7EA5C /* PostcodeTextMapper.swift in Sources */,
 				F9C0B6BD2BCE5EA700F7EA5C /* FeedbackView.swift in Sources */,
@@ -441,7 +465,6 @@
 				F98889882BCD68C9001357D0 /* TextImageView.swift in Sources */,
 				F988898D2BCE3BE6001357D0 /* BarcodeImageView.swift in Sources */,
 				F9BE82DB2B8C74BC00514ECC /* BoxesOverlayViewController.swift in Sources */,
-				F9EE1EEA2BF33D8500FFBDB6 /* EditDistanceView.swift in Sources */,
 				F988897F2BCD688F001357D0 /* BarcodeViewController.swift in Sources */,
 				F9CE84852B873BA8002BE6C8 /* EdgeOCRSample.swift in Sources */,
 				F988898A2BCE13DF001357D0 /* DialogView.swift in Sources */,
@@ -451,8 +474,10 @@
 				F98889902BCE3D92001357D0 /* UIImage.swift in Sources */,
 				F9C0B6B62BCE562A00F7EA5C /* BarcodeImageFooter.swift in Sources */,
 				F988897A2BCD5888001357D0 /* NTimesScanViewController.swift in Sources */,
-				F9EE1EEC2BF33D9A00FFBDB6 /* EditDistanceAnalyzer.swift in Sources */,
 				F9CE84B22B8B9D32002BE6C8 /* ActivationModel.swift in Sources */,
+				F95B211C2D1D2E69004C0646 /* FuzzyRegexAnalyzer.swift in Sources */,
+				F95B211D2D1D2E69004C0646 /* FuzzyRegexView.swift in Sources */,
+				F95B211E2D1D2E69004C0646 /* FuzzyRegexViewController.swift in Sources */,
 				F96CC6F12BEB863C002A297C /* WhiteListViewController.swift in Sources */,
 				F914ED122BC92F7800899D8A /* CropViewController.swift in Sources */,
 			);
@@ -694,6 +719,29 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F95B20BD2D1D2057004C0646 /* EdgeOCRSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EdgeOCRSwift;
+		};
+		F95B21202D1D3652004C0646 /* EdgeOCRSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EdgeOCRSwift;
+		};
+		F95B21232D1D379B004C0646 /* EdgeOCRSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EdgeOCRSwift;
+		};
+		F95B21262D1D4455004C0646 /* EdgeOCRSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EdgeOCRSwift;
+		};
+		F95B21292D1D44C6004C0646 /* EdgeOCRSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EdgeOCRSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F9CE84792B873BA8002BE6C8 /* Project object */;
 }

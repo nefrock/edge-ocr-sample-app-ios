@@ -7,7 +7,7 @@
 
 import enum EdgeOCRSwift.BarcodeFormat
 import class EdgeOCRSwift.EdgeOCR
-import class EdgeOCRSwift.ModelSettings
+import struct EdgeOCRSwift.ModelSettings
 import Foundation
 import SwiftUI
 
@@ -22,7 +22,8 @@ enum EdgeOCRSampleKind: Hashable {
     case textImageView
     case barcodeImageView
     case whiteListView
-    case editDistanceView
+    case fuzzySearchView
+    case fuzzyRegexView
 }
 
 struct MainView: View {
@@ -48,7 +49,8 @@ struct MainView: View {
     // モデルのロードと画面遷移
     func loadModelAndNavigate(destination: EdgeOCRSampleKind,
                               uid: String = "model-d320x320",
-                              modelSettings: ModelSettings = ModelSettings()) {
+                              modelSettings: ModelSettings = ModelSettings())
+    {
         /* モデルをロード */
         Task {
             isLoading = true
@@ -113,7 +115,7 @@ struct MainView: View {
                         // MARK: 検出結果をフィルタリングする例の実装
 
                         Button(action: {
-                            let modelSettings = ModelSettings()
+                            var modelSettings = ModelSettings()
                             modelSettings.setDetectionFilter(CenterDetectionFilter())
                             loadModelAndNavigate(destination: .detectionFilterView, modelSettings: modelSettings)
                         }) {
@@ -124,7 +126,7 @@ struct MainView: View {
 
                         Button(action: {
                             /* 5回読み取ったら確定 */
-                            let modelSettings = ModelSettings(textNToConfirm: 5)
+                            var modelSettings = ModelSettings(textNToConfirm: 5)
                             /* 郵便番号のテキストマッパーを設定 */
                             modelSettings.setTextMapper(PostcodeTextMapper())
                             loadModelAndNavigate(destination: .nTimesScanView, modelSettings: modelSettings)
@@ -179,9 +181,17 @@ struct MainView: View {
                         // MARK: - マスターデータを用いたOCR (曖昧一致)の例の実装
 
                         Button(action: {
-                            loadModelAndNavigate(destination: .editDistanceView)
+                            loadModelAndNavigate(destination: .fuzzySearchView)
                         }) {
                             Text("マスターデータを用いたOCR (曖昧一致)")
+                        }
+
+                        // MARK: - 正規表現を用いたOCR (曖昧一致)の例の実装
+
+                        Button(action: {
+                            loadModelAndNavigate(destination: .fuzzyRegexView)
+                        }) {
+                            Text("正規表現を用いたOCR (曖昧一致)")
                         }
                     }
 
@@ -227,8 +237,10 @@ struct MainView: View {
                         BarcodeImageView()
                     case .whiteListView:
                         WhiteListView(aspectRatio: $aspectRatio)
-                    case .editDistanceView:
-                        EditDistanceView(aspectRatio: $aspectRatio)
+                    case .fuzzySearchView:
+                        FuzzySearchView(aspectRatio: $aspectRatio)
+                    case .fuzzyRegexView:
+                        FuzzyRegexView(aspectRatio: $aspectRatio)
                     }
                 }
 

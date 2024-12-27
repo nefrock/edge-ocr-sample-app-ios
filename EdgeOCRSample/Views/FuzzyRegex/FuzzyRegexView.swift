@@ -8,14 +8,14 @@
 import Foundation
 import SwiftUI
 
-struct EditDistanceView: View {
+struct FuzzyRegexView: View {
     @Binding var aspectRatio: Double
     @State var showDialog: Bool = false
     @State var messages: [String] = []
 
     var body: some View {
         ZStack {
-            HostedEditDistanceViewController(
+            HostedFuzzyRegexViewController(
                 aspectRatio: $aspectRatio,
                 showDialog: $showDialog,
                 messages: $messages
@@ -29,5 +29,5 @@ struct EditDistanceView: View {
 }
 
 #Preview {
-    EditDistanceView(aspectRatio: .constant(1.0))
+    FuzzyRegexView(aspectRatio: .constant(1.0))
 }

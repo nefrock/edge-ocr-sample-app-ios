@@ -1,12 +1,11 @@
-# マスターデータを用いたOCR (完全一致)
+# マスターデータを用いた OCR (完全一致)
 
 このチュートリアルでは，OCR 検出結果がマスターデータ（ホワイトリスト）に含まれているテキストを検出した際に，ダイアログを表示する方法を説明いたします．
 
-
 <img src="./imgs/13-whitelist/whitelist.jpeg" width="300">
 
-
 ## 概要
+
 検出したいマスターデータをあらかじめ定義し，検出結果のテキストがマスターデータに含まれているかどうかを判定します．
 そして，マスターデータに含まれているテキストを検出した場合には，ダイアログを表示します．
 
@@ -17,8 +16,8 @@
 `EdgeOCRSample/Views/Main/MainView.swift`，
 に実装されていますので，ご参考になさってください．
 
+## マスターデータを用いた OCR（完全一致）の実装方法
 
-## マスターデータを用いたOCR（完全一致）の実装方法
 `EdgeOCRSample/Views/WhiteList/WhiteListAnalyzer.swift` に実装されている `WhiteListAnalyzer` クラスを使用して，検出結果とマスターデータの比較を行います．
 
 マスターデータに含まれている `Text` は `targetDetections` に，含まれていない `Text` は `notTargetDetections` に格納します．
@@ -75,7 +74,6 @@ class WhiteListAnalyzer {
 }
 ```
 
-
 次に，`EdgeOCRSample/Views/WhiteList/WhiteListViewController.swift` では，`WhiteListAnalyzer` クラスを使用して，検出結果とマスターデータの比較を行います．
 
 `targetDetection` はマスターデータに含まれているテキストを，`notTargetDetection` はマスターデータに含まれていないテキストを表します．
@@ -115,6 +113,7 @@ func drawDetections(result: ScanResult) {
 ```
 
 ## 次のステップ
-次はマスターデータを用いたOCRで曖昧さを許容したOCR方法を説明します．
 
-↪️ [マスターデータを用いたOCR (曖昧一致)](14-editdistance.md)
+次はマスターデータを用いた OCR で曖昧さを許容した OCR 方法を説明します．
+
+↪️ [マスターデータを用いた OCR (曖昧一致)](14-fuzzy-search.md)
