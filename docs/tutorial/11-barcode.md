@@ -1,11 +1,11 @@
 # バーコードスキャン
 
-このチュートリアルでは，バーコードをスキャンする方法について説明します。
+このチュートリアルでは，バーコードをスキャンする方法について説明します．
 
 
 ## 概要
 
-`scan`メソッドを使用して，画像内のバーコードをスキャンすることができます。
+`scan`メソッドを使用して，画像内のバーコードをスキャンすることができます．
 
 この例の実装は
 `EdgeOCRSample/Views/Barcode/BarcodeViewController.swift` と　
@@ -27,7 +27,6 @@ Button(action: {
     let barcodeFormats = [BarcodeFormat.QRCode: 5]
     let modelSettings = ModelSettings(barcodeNToConfirm: barcodeFormats)
     loadModelAndNavigate(destination: .barcodeView, "edgeocr_barcode_default", modelSettings: modelSettings)
-    loadModelAndNavigate(destination: .barcodeView)
 }) {
     Text("バーコード読み取り")
 }

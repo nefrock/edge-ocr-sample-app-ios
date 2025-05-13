@@ -33,6 +33,8 @@
 		F98889902BCE3D92001357D0 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F988898F2BCE3D92001357D0 /* UIImage.swift */; };
 		F98889922BCE3DF5001357D0 /* TextImageFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98889912BCE3DF5001357D0 /* TextImageFooter.swift */; };
 		F98889942BCE414D001357D0 /* TextImageScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98889932BCE414C001357D0 /* TextImageScanner.swift */; };
+		F9AE591E2D6D92240063169F /* DPMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AE591D2D6D921D0063169F /* DPMViewController.swift */; };
+		F9AE59202D6D922B0063169F /* DPMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AE591F2D6D92270063169F /* DPMView.swift */; };
 		F9BE82D82B8C593200514ECC /* LoadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BE82D72B8C593200514ECC /* LoadModel.swift */; };
 		F9BE82DB2B8C74BC00514ECC /* BoxesOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BE82DA2B8C74BC00514ECC /* BoxesOverlayViewController.swift */; };
 		F9C0B6B62BCE562A00F7EA5C /* BarcodeImageFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C0B6B52BCE562A00F7EA5C /* BarcodeImageFooter.swift */; };
@@ -92,6 +94,8 @@
 		F988898F2BCE3D92001357D0 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		F98889912BCE3DF5001357D0 /* TextImageFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextImageFooter.swift; sourceTree = "<group>"; };
 		F98889932BCE414C001357D0 /* TextImageScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextImageScanner.swift; sourceTree = "<group>"; };
+		F9AE591D2D6D921D0063169F /* DPMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMViewController.swift; sourceTree = "<group>"; };
+		F9AE591F2D6D92270063169F /* DPMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMView.swift; sourceTree = "<group>"; };
 		F9BE82D72B8C593200514ECC /* LoadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadModel.swift; sourceTree = "<group>"; };
 		F9BE82DA2B8C74BC00514ECC /* BoxesOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesOverlayViewController.swift; sourceTree = "<group>"; };
 		F9C0B6B52BCE562A00F7EA5C /* BarcodeImageFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeImageFooter.swift; sourceTree = "<group>"; };
@@ -221,6 +225,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		F9AE591C2D6D92130063169F /* DPM */ = {
+			isa = PBXGroup;
+			children = (
+				F9AE591F2D6D92270063169F /* DPMView.swift */,
+				F9AE591D2D6D921D0063169F /* DPMViewController.swift */,
+			);
+			path = DPM;
+			sourceTree = "<group>";
+		};
 		F9BE82D62B8C591900514ECC /* LoadModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,6 +318,7 @@
 		F9CE84AF2B8B9958002BE6C8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F9AE591C2D6D92130063169F /* DPM */,
 				F988897D2BCD687F001357D0 /* Barcode */,
 				F988898B2BCE3BC5001357D0 /* BarcodeImage */,
 				F9BE82D92B8C749900514ECC /* BoxesOverlay */,
@@ -461,6 +475,7 @@
 				F9BE82D82B8C593200514ECC /* LoadModel.swift in Sources */,
 				F9CE84AB2B87577B002BE6C8 /* ViewController.swift in Sources */,
 				F92DB4B82BCD1507000A0E58 /* DetectionFilterViewController.swift in Sources */,
+				F9AE591E2D6D92240063169F /* DPMViewController.swift in Sources */,
 				F93D2AAF2B8C20CA0024259C /* SimpleTextViewController.swift in Sources */,
 				F98889882BCD68C9001357D0 /* TextImageView.swift in Sources */,
 				F988898D2BCE3BE6001357D0 /* BarcodeImageView.swift in Sources */,
@@ -469,6 +484,7 @@
 				F9CE84852B873BA8002BE6C8 /* EdgeOCRSample.swift in Sources */,
 				F988898A2BCE13DF001357D0 /* DialogView.swift in Sources */,
 				F98889942BCE414D001357D0 /* TextImageScanner.swift in Sources */,
+				F9AE59202D6D922B0063169F /* DPMView.swift in Sources */,
 				F92DB4BA2BCD1513000A0E58 /* DetectionFilterView.swift in Sources */,
 				F914ED1D2BCCE7C500899D8A /* BoxesOverlayView.swift in Sources */,
 				F98889902BCE3D92001357D0 /* UIImage.swift in Sources */,
@@ -614,7 +630,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "EdgeOCRSample/Preview\\ Content";
-				DEVELOPMENT_TEAM = TEB2H4F62B;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -660,7 +676,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "EdgeOCRSample/Preview\\ Content";
-				DEVELOPMENT_TEAM = TEB2H4F62B;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (

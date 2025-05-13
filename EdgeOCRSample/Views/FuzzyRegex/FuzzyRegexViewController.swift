@@ -7,9 +7,9 @@
 
 import AVFoundation
 import EdgeOCRSwift
-import os
 import SwiftUI
 import UIKit
+import os
 
 class FuzzyRegexViewController: ViewController {
     private let edgeOCR = EdgeOCR.getInstance()
@@ -30,8 +30,8 @@ class FuzzyRegexViewController: ViewController {
     init(
         aspectRatio: Binding<Double>,
         showDialog: Binding<Bool>,
-        messages: Binding<[String]>)
-    {
+        messages: Binding<[String]>
+    ) {
         _aspectRatio = aspectRatio
         _showDialog = showDialog
         _messages = messages
@@ -47,11 +47,11 @@ class FuzzyRegexViewController: ViewController {
         let width = viewBounds.width
         let height = viewBounds.width * CGFloat(aspectRatio)
         // デフォルトの検出領域である画面中央にガイドを表示
-        let coropHorizontalBias = 0.5
+        let cropHorizontalBias = 0.5
         let cropVerticalBias = 0.5
         guideLayer = CALayer()
         guideLayer.frame = CGRect(
-            x: coropHorizontalBias * (viewBounds.width - width),
+            x: cropHorizontalBias * (viewBounds.width - width),
             y: cropVerticalBias * (viewBounds.height - height),
             width: width,
             height: height)
@@ -77,8 +77,8 @@ class FuzzyRegexViewController: ViewController {
         bbox: CGRect,
         text: String,
         boxColor: CGColor = UIColor.green.withAlphaComponent(0.5).cgColor,
-        textColor: CGColor = UIColor.black.cgColor)
-    {
+        textColor: CGColor = UIColor.black.cgColor
+    ) {
         let boxLayer = CALayer()
 
         // バウンディングボックスの座標を計算
@@ -131,9 +131,10 @@ class FuzzyRegexViewController: ViewController {
         for notTargetDetection in analyzerResult.getNotTargetDetections() {
             let text = notTargetDetection.getText()
             let bbox = notTargetDetection.getBoundingBox()
-            drawDetection(bbox: bbox,
-                          text: text,
-                          boxColor: UIColor.red.withAlphaComponent(0.5).cgColor)
+            drawDetection(
+                bbox: bbox,
+                text: text,
+                boxColor: UIColor.red.withAlphaComponent(0.5).cgColor)
         }
 
         if messages.count > 0 {
@@ -143,7 +144,10 @@ class FuzzyRegexViewController: ViewController {
         CATransaction.commit()
     }
 
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    func captureOutput(
+        _ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
+        from connection: AVCaptureConnection
+    ) {
         let scanResult: ScanResult
         do {
             scanResult = try edgeOCR.scan(sampleBuffer, viewBounds: viewBounds)
@@ -164,9 +168,10 @@ struct HostedFuzzyRegexViewController: UIViewControllerRepresentable {
     @Binding var messages: [String]
 
     func makeUIViewController(context: Context) -> FuzzyRegexViewController {
-        return FuzzyRegexViewController(aspectRatio: $aspectRatio,
-                                        showDialog: $showDialog,
-                                        messages: $messages)
+        return FuzzyRegexViewController(
+            aspectRatio: $aspectRatio,
+            showDialog: $showDialog,
+            messages: $messages)
     }
 
     func updateUIViewController(_ uiViewController: FuzzyRegexViewController, context: Context) {}

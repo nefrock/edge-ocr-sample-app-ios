@@ -38,9 +38,9 @@ func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBu
 
 `edgeOCR.scan` メソッドの戻り値は `ScanResult` オブジェクトです．
 このオブジェクトから `getDetections` メソッドで OCR 結果である `Detection` オブジェクトが取得できます．
-スキャン範囲内の対象物トのすべてをスキャンするので、複数の `Detection` オブジェクトが返されます。
-また、対象物は `useModel` で選択したモデルによってテキスト、バーコード、またはその両方です。
-`getDetections` の返す `Detection` オブジェクトを `Text` または `Barcode` にキャストして、それぞれの情報を取得できます。
+スキャン範囲内の対象物トのすべてをスキャンするので、複数の `Detection` オブジェクトが返されます．
+また、対象物は `useModel` で選択したモデルによってテキスト、バーコード、またはその両方です．
+`getDetections` の返す `Detection` オブジェクトを `Text` または `Barcode` にキャストして、それぞれの情報を取得できます．
 文字列、またはバーコードのみを取得したい場合は、`getTextDetections` （または `getBarcodeDetections`）を使用してください．
 
 また，カメラの解像度とスキャン範囲は異なっています．

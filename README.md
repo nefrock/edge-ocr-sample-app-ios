@@ -28,7 +28,9 @@ https://nefrock.github.io/edge-ocr-sample-app-ios/sdk_swiftdoc/documentation/edg
 - [バーコードスキャン](docs/tutorial/11-barcode.md)
 - [画像のOCR](docs/tutorial/12-image.md)
 - [マスターデータを用いたOCR (完全一致)](docs/tutorial/13-whitelist.md)
-- [マスターデータを用いたOCR (曖昧一致)](docs/tutorial/14-editdistance.md)
+- [マスターデータを用いたOCR (曖昧一致)](docs/tutorial/14-fuzzy-search.md)
+- [正規表現を用いた検索（曖昧検索）](docs/tutorial/15-fuzzy-regex.md)
+- [AI を用いたDPMコードの読み取り（Optional）](docs/tutorial/16-dpm.md)
 
 ## v2.x から v3.x へのマイグレーションガイド
 - [v2.x から v3.x へのマイグレーションガイド](docs/migration/v2.x_to_v3.x.md)

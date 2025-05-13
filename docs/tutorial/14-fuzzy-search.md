@@ -89,7 +89,7 @@ class FuzzySearchAnalyzer {
 `FuzzySearch` クラスでは、`loadWeight` メソッドで重みを読み込み，`loadMasterData` メソッドでマスターデータを読み込みます．
 そして、`calcSimilarityWithMasterData` メソッドで検出結果とマスターデータの編集距離を計算します．
 `loadWeight` メソッドは，`FuzzySearch.WeightType` によって重みを指定します．
-使用できる重みは、以下の三つです。
+使用できる重みは、以下の三つです．
 
 - `FuzzySearch.WeightType.Default`: デフォルトの重み
 - `FuzzySearch.WeightType.Disabled`: 重みを使用しません．

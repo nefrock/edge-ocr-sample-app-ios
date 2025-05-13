@@ -7,10 +7,10 @@
 
 import AVFoundation
 import EdgeOCRSwift
-import os
 import RegexBuilder
 import SwiftUI
 import UIKit
+import os
 
 class BarcodeViewController: ViewController {
     private let edgeOCR = EdgeOCR.getInstance()
@@ -30,8 +30,8 @@ class BarcodeViewController: ViewController {
     init(
         aspectRatio: Binding<Double>,
         showDialog: Binding<Bool>,
-        messages: Binding<[String]>)
-    {
+        messages: Binding<[String]>
+    ) {
         _aspectRatio = aspectRatio
         _showDialog = showDialog
         _messages = messages
@@ -47,11 +47,11 @@ class BarcodeViewController: ViewController {
         let width = viewBounds.width
         let height = viewBounds.height
         // デフォルトの検出領域である画面中央にガイドを表示
-        let coropHorizontalBias = 0.5
+        let cropHorizontalBias = 0.5
         let cropVerticalBias = 0.5
         guideLayer = CALayer()
         guideLayer.frame = CGRect(
-            x: coropHorizontalBias * (viewBounds.width - width),
+            x: cropHorizontalBias * (viewBounds.width - width),
             y: cropVerticalBias * (viewBounds.height - height),
             width: width,
             height: height)
@@ -78,8 +78,8 @@ class BarcodeViewController: ViewController {
         bbox: CGRect,
         text: String,
         boxColor: CGColor = UIColor.green.withAlphaComponent(0.5).cgColor,
-        textColor: CGColor = UIColor.black.cgColor)
-    {
+        textColor: CGColor = UIColor.black.cgColor
+    ) {
         let boxLayer = CALayer()
         let width = detectionLayer.frame.width
         let height = detectionLayer.frame.height
@@ -141,12 +141,16 @@ class BarcodeViewController: ViewController {
         }
     }
 
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    func captureOutput(
+        _ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
+        from connection: AVCaptureConnection
+    ) {
         let scanResult: ScanResult
         do {
             // MARK: - バーコードの読み取り
 
-            scanResult = try edgeOCR.scan(sampleBuffer, scanOptions: scanOptions, viewBounds: viewBounds)
+            scanResult = try edgeOCR.scan(
+                sampleBuffer, scanOptions: scanOptions, viewBounds: viewBounds)
 
         } catch {
             os_log("Failed to scan texts: %@", type: .debug, error.localizedDescription)

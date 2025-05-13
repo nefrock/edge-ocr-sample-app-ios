@@ -5,11 +5,12 @@
 //  Created by kikemori on 2024/02/22.
 //
 
+import Foundation
+import SwiftUI
+
 import enum EdgeOCRSwift.BarcodeFormat
 import class EdgeOCRSwift.EdgeOCR
 import struct EdgeOCRSwift.ModelSettings
-import Foundation
-import SwiftUI
 
 enum EdgeOCRSampleKind: Hashable {
     case mostSimpleView
@@ -24,6 +25,7 @@ enum EdgeOCRSampleKind: Hashable {
     case whiteListView
     case fuzzySearchView
     case fuzzyRegexView
+    case DPMView
 }
 
 struct MainView: View {
@@ -47,15 +49,19 @@ struct MainView: View {
     let licenseKey = ""
 
     // モデルのロードと画面遷移
-    func loadModelAndNavigate(destination: EdgeOCRSampleKind,
-                              uid: String = "model-d320x320",
-                              modelSettings: ModelSettings = ModelSettings())
-    {
+    func loadModelAndNavigate(
+        destination: EdgeOCRSampleKind,
+        uid: String = "model-d320x320",
+        modelSettings: ModelSettings = ModelSettings(),
+        experimental: Bool = false
+    ) {
         /* モデルをロード */
         Task {
             isLoading = true
             do {
-                let info = try await loadModel(path: modelPath, uid: uid, modelSettings: modelSettings)
+                let info = try await loadModel(
+                    path: modelPath, uid: uid, modelSettings: modelSettings,
+                    experimental: experimental)
                 aspectRatio = info!.getAspectRatio()
                 /* 画面遷移 */
                 path.append(destination)
@@ -117,7 +123,8 @@ struct MainView: View {
                         Button(action: {
                             var modelSettings = ModelSettings()
                             modelSettings.setDetectionFilter(CenterDetectionFilter())
-                            loadModelAndNavigate(destination: .detectionFilterView, modelSettings: modelSettings)
+                            loadModelAndNavigate(
+                                destination: .detectionFilterView, modelSettings: modelSettings)
                         }) {
                             Text("検出結果をフィルタリング")
                         }
@@ -129,7 +136,8 @@ struct MainView: View {
                             var modelSettings = ModelSettings(textNToConfirm: 5)
                             /* 郵便番号のテキストマッパーを設定 */
                             modelSettings.setTextMapper(PostcodeTextMapper())
-                            loadModelAndNavigate(destination: .nTimesScanView, modelSettings: modelSettings)
+                            loadModelAndNavigate(
+                                destination: .nTimesScanView, modelSettings: modelSettings)
                         }) {
                             Text("複数回読み取り")
                         }
@@ -140,7 +148,9 @@ struct MainView: View {
                             // *QRCodeの複数回読み取りを設定する*
                             let barcodeFormats = [BarcodeFormat.QRCode: 5]
                             let modelSettings = ModelSettings(barcodeNToConfirm: barcodeFormats)
-                            loadModelAndNavigate(destination: .barcodeView, uid: "edgeocr_barcode_default", modelSettings: modelSettings)
+                            loadModelAndNavigate(
+                                destination: .barcodeView, uid: "edgeocr_barcode_default",
+                                modelSettings: modelSettings)
                         }) {
                             Text("バーコード読み取り")
                         }
@@ -164,8 +174,9 @@ struct MainView: View {
                         // MARK: - バーコード画像読み取りの例の実装
 
                         Button(action: {
-                            loadModelAndNavigate(destination: .barcodeImageView,
-                                                 uid: "edgeocr_barcode_default")
+                            loadModelAndNavigate(
+                                destination: .barcodeImageView,
+                                uid: "edgeocr_barcode_default")
                         }) {
                             Text("バーコード画像読み取り")
                         }
@@ -192,6 +203,15 @@ struct MainView: View {
                             loadModelAndNavigate(destination: .fuzzyRegexView)
                         }) {
                             Text("正規表現を用いたOCR (曖昧一致)")
+                        }
+
+                        // MARK: - AI を用いたDPMコードの読み取り（Optional）
+
+                        Button(action: {
+                            loadModelAndNavigate(
+                                destination: .DPMView, uid: "barcode_dpm", experimental: true)
+                        }) {
+                            Text("AI を用いたDPMコードの読み取り（Optional）")
                         }
                     }
 
@@ -241,6 +261,8 @@ struct MainView: View {
                         FuzzySearchView(aspectRatio: $aspectRatio)
                     case .fuzzyRegexView:
                         FuzzyRegexView(aspectRatio: $aspectRatio)
+                    case .DPMView:
+                        DPMView(aspectRatio: $aspectRatio)
                     }
                 }
 

@@ -7,10 +7,10 @@
 
 import AVFoundation
 import EdgeOCRSwift
-import os
 import RegexBuilder
 import SwiftUI
 import UIKit
+import os
 
 class NTimesScanViewController: ViewController {
     private let edgeOCR = EdgeOCR.getInstance()
@@ -38,11 +38,11 @@ class NTimesScanViewController: ViewController {
         let width = viewBounds.width
         let height = viewBounds.width * CGFloat(aspectRatio)
         // デフォルトの検出領域である画面中央にガイドを表示
-        let coropHorizontalBias = 0.5
+        let cropHorizontalBias = 0.5
         let cropVerticalBias = 0.5
         guideLayer = CALayer()
         guideLayer.frame = CGRect(
-            x: coropHorizontalBias * (viewBounds.width - width),
+            x: cropHorizontalBias * (viewBounds.width - width),
             y: cropVerticalBias * (viewBounds.height - height),
             width: width,
             height: height)
@@ -68,8 +68,8 @@ class NTimesScanViewController: ViewController {
         bbox: CGRect,
         text: String,
         boxColor: CGColor = UIColor.green.withAlphaComponent(0.5).cgColor,
-        textColor: CGColor = UIColor.black.cgColor)
-    {
+        textColor: CGColor = UIColor.black.cgColor
+    ) {
         let boxLayer = CALayer()
 
         let width = detectionLayer.frame.width
@@ -124,7 +124,10 @@ class NTimesScanViewController: ViewController {
         CATransaction.commit()
     }
 
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    func captureOutput(
+        _ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
+        from connection: AVCaptureConnection
+    ) {
         let scanResult: ScanResult
         do {
             scanResult = try edgeOCR.scan(sampleBuffer, viewBounds: viewBounds)

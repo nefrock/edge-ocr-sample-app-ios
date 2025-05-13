@@ -91,3 +91,9 @@ class FuzzyRegexAnalyzer {
         CATransaction.commit()
     }
 ```
+
+## 次のステップ（Optional）
+
+次はDPMコードの読み取りについて説明します．
+
+↪️ [AI を用いたDPMコードの読み取り（Optional）](16-dpm.md)
